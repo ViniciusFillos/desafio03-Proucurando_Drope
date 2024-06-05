@@ -1,12 +1,12 @@
-package web.controller;
+package com.microServiceFuncionarios.web.controller;
 
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.FuncionarioService;
-import web.dto.FuncionarioDto;
+import com.microServiceFuncionarios.service.FuncionarioService;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 
 import java.util.List;
 

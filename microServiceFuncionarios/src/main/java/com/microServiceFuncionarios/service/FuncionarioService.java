@@ -1,12 +1,12 @@
-package service;
+package com.microServiceFuncionarios.service;
 
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import repositories.FuncionarioRepository;
-import web.dto.FuncionarioDto;
-import web.dto.mapper.FuncionarioMapper;
+import com.microServiceFuncionarios.repositories.FuncionarioRepository;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
+import com.microServiceFuncionarios.web.dto.mapper.FuncionarioMapper;
 
 import java.util.List;
 

@@ -20,6 +20,7 @@ public class GatewayApplication {
 		return builder
 				.routes()
 				.route(r -> r.path("/funcionarios/**").uri("lb://msFuncionarios"))
+				.route(r -> r.path("/propostas/**").uri("lb://msPropostas"))
 				.build();
 	}
 

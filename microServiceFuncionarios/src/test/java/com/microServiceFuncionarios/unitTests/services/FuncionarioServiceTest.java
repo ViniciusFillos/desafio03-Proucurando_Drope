@@ -1,7 +1,7 @@
 package com.microServiceFuncionarios.unitTests.services;
 
 import com.microServiceFuncionarios.mocks.MockFuncionario;
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import repositories.FuncionarioRepository;
-import service.FuncionarioService;
-import web.dto.FuncionarioDto;
+import com.microServiceFuncionarios.repositories.FuncionarioRepository;
+import com.microServiceFuncionarios.service.FuncionarioService;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 
 import java.util.List;
 import java.util.Optional;
