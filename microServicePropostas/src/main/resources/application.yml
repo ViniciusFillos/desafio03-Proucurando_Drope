@@ -1,1 +1,12 @@
-spring.application.name=microServicePropostas
+spring:
+  application:
+      name: msPropostas
+server:
+  port: 0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.intance_id:${random.value}}
+    prefer-ip-address: true
