@@ -12,25 +12,25 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Table(name= "tb_funcionarios")
-public class Funcionarios {
+public class Funcionario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Column
+    @Column(nullable = false)
     private String nome;
 
     @NotNull
-    @Column
+    @Column(nullable = false, length = 11)
     private String cpf;
 
     @NotNull
-    @Column
+    @Column(nullable = false)
     private LocalDate dataNascimento;
 
     @NotNull
     @Column
     private boolean ativo;
-
 }

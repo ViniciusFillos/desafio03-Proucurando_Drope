@@ -1,6 +1,6 @@
 spring:
   application:
-    name: msfuncionarios
+    name: msFuncionarios
 
 server:
   port: 0
