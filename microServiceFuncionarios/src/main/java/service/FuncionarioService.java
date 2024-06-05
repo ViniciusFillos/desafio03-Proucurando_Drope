@@ -32,10 +32,10 @@ public class FuncionarioService {
 
     public Funcionario inativarFuncionario(Long id) {
         Funcionario funcionario = buscarPorId(id);
-        if(funcionario.isAtivo()){
+        if (funcionario.isAtivo()) {
             funcionario.setAtivo(false);
         }
-    return funcionario;
+        return funcionario;
     }
 
     public Funcionario alterarFuncionario(Long id, Funcionario funcionario) {
