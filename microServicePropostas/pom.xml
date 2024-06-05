@@ -18,6 +18,13 @@
 		<spring-cloud.version>2023.0.2</spring-cloud.version>
 	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -42,10 +49,11 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.4.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
