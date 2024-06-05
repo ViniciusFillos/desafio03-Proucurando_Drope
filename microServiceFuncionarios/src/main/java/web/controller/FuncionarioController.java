@@ -1,11 +1,20 @@
 package web.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import entities.Funcionarios;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import service.FuncionariosService;
 
 @RestController
-@RequestMapping("funcionarios")
+@RequestMapping("/api/v1/funcionarios")
 public class FuncionarioController {
+    private FuncionariosService funcionariosService;
+
+    @PostMapping
+    public ResponseEntity<Funcionarios> salvar (@RequestBody Funcionarios funcionario){
+        Funcionarios funcionarioCriado = funcionariosService.save(funcionario);
+        return new ResponseEntity<>(funcionarioCriado, HttpStatus.CREATED);
+    }
 
 }
