@@ -1,10 +1,10 @@
 package com.microServicePropostas.controller;
 
+import com.microServicePropostas.dto.PropostaDto;
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.services.PropostaService;
 import jakarta.ws.rs.PathParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +32,7 @@ public class PropostaController {
     }
 
     @PostMapping
-    public ResponseEntity<Proposta> create( @RequestBody Proposta proposta) {
+    public ResponseEntity<Proposta> create( @RequestBody PropostaDto proposta) {
         Proposta criado = propostaService.save(proposta);
         return new ResponseEntity <>(criado, HttpStatus.CREATED);
     }
