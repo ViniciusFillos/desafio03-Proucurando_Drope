@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -25,10 +27,10 @@ public class Funcionarios {
 
     @NotNull
     @Column
-    private boolean ativo;
+    private LocalDate dataNascimento;
 
     @NotNull
     @Column
-    private boolean votou;
+    private boolean ativo;
 
 }
