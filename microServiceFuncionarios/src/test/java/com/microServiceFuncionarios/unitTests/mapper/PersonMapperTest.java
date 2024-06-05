@@ -1,11 +1,11 @@
 package com.microServiceFuncionarios.unitTests.mapper;
 
 import com.microServiceFuncionarios.mocks.MockFuncionario;
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import web.dto.FuncionarioDto;
-import web.dto.mapper.FuncionarioMapper;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
+import com.microServiceFuncionarios.web.dto.mapper.FuncionarioMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

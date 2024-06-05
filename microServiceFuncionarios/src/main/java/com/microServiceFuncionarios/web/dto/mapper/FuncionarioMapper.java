@@ -1,9 +1,9 @@
-package web.dto.mapper;
+package com.microServiceFuncionarios.web.dto.mapper;
 
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import web.dto.FuncionarioDto;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 
 @NoArgsConstructor
 public class FuncionarioMapper {

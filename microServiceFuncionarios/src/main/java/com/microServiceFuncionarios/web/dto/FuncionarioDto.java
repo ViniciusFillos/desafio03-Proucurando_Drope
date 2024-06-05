@@ -1,4 +1,4 @@
-package web.dto;
+package com.microServiceFuncionarios.web.dto;
 
 import lombok.*;
 

@@ -1,18 +1,15 @@
 package com.microServiceFuncionarios.mocks;
 
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
 
-import org.junit.jupiter.api.Test;
-import web.dto.FuncionarioDto;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 public class MockFuncionario {
 

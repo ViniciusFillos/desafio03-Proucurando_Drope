@@ -1,6 +1,6 @@
 spring:
   application:
-    name: msFuncionario
+    name: msFuncionarios
   # DATASOURCE
   datasource:
     driverClassName: org.h2.Driver
