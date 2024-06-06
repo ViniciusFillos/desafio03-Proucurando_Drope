@@ -21,6 +21,7 @@ public class GatewayApplication {
 				.routes()
 				.route(r -> r.path("/api/v1/funcionarios/**").uri("lb://msFuncionarios"))
 				.route(r -> r.path("/api/v1/propostas/**").uri("lb://msPropostas"))
+				.route(r -> r.path("/api/v1/votacao/**").uri("lb://msVotacao"))
 				.build();
 	}
 
