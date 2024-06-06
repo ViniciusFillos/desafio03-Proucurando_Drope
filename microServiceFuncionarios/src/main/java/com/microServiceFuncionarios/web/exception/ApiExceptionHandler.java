@@ -1,7 +1,7 @@
 package com.microServiceFuncionarios.web.exception;
 
+import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
 import com.microServiceFuncionarios.web.ErrorMessage;
-import com.microServiceFuncionarios.web.controller.CpfUniqueViolationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;

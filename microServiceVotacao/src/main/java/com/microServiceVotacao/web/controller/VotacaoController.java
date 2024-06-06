@@ -2,6 +2,7 @@ package com.microServiceVotacao.web.controller;
 
 import com.microServiceVotacao.entities.Votacao;
 import com.microServiceVotacao.services.VotacaoService;
+import com.microServiceVotacao.web.dto.ResultadoVotacaoDto;
 import com.microServiceVotacao.web.dto.VotoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,9 +25,9 @@ public class VotacaoController {
     }
 
     @PatchMapping("/encerrar/{idVotacao}")
-    public ResponseEntity<String> encerrarVotacao (@PathVariable Long idVotacao) {
-        Votacao votacao = votacaoService.encerrar(idVotacao);
-        return new ResponseEntity<>("Votação "+votacao.getId()+" encerrada", HttpStatus.OK);
+    public ResponseEntity<ResultadoVotacaoDto> encerrarVotacao (@PathVariable Long idVotacao) {
+        ResultadoVotacaoDto resultado = votacaoService.encerrar(idVotacao);
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
     @PatchMapping("/{idVotacao}")
