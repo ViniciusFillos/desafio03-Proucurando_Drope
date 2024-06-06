@@ -3,13 +3,16 @@ package com.microServiceFuncionarios.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name= "tb_funcionarios")
 public class Funcionario {
@@ -26,7 +29,7 @@ public class Funcionario {
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @NotNull
+    @NonNull
     @Column(nullable = false)
     private LocalDate dataNascimento;
 

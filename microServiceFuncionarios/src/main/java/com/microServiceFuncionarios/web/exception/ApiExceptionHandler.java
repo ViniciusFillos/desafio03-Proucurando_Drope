@@ -1,8 +1,10 @@
 package com.microServiceFuncionarios.web.exception;
 
+
+import com.microServiceFuncionarios.exceptions.UnableException;
 import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
+import com.microServiceFuncionarios.exceptions.EntityNotFoundException;
 import com.microServiceFuncionarios.web.ErrorMessage;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,17 +19,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorMessage> GeneralException(RuntimeException ex,
-                                                                    HttpServletRequest request){
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage()));
-    }
     @ExceptionHandler(CpfUniqueViolationException.class)
-    public ResponseEntity<ErrorMessage> CpfUniqueViolationException(RuntimeException ex,
-                                                                        HttpServletRequest request){
+    public ResponseEntity<ErrorMessage> cpfUniqueViolationException(DataIntegrityViolationException ex,
+                                                                    HttpServletRequest request){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -35,12 +29,20 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorMessage> EntitiNotFoudException(RuntimeException ex,
+    public ResponseEntity<ErrorMessage> entitiNotFoudException(RuntimeException ex,
                                                                         HttpServletRequest request){
         return ResponseEntity
-                .status(HttpStatus.CONFLICT)
+                .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage()));
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
+    }
+    @ExceptionHandler(UnableException.class)
+    public ResponseEntity<ErrorMessage> unableException(RuntimeException ex,
+                                                        HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

@@ -1,8 +1,10 @@
 package com.microServiceFuncionarios.exceptions;
 
 
-public class CpfUniqueViolationException extends RuntimeException {
-    public CpfUniqueViolationException(String message) {
-        super(message);
+import org.springframework.dao.DataIntegrityViolationException;
+
+public class CpfUniqueViolationException extends DataIntegrityViolationException {
+    public CpfUniqueViolationException(String messagem) {
+        super(messagem);
     }
 }

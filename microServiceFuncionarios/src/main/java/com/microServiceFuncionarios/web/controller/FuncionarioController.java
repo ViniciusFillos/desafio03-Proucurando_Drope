@@ -1,8 +1,8 @@
 package com.microServiceFuncionarios.web.controller;
 
 import com.microServiceFuncionarios.entities.Funcionario;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +11,15 @@ import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/funcionarios")
-@RequiredArgsConstructor
+
 public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
 
+    @Transactional
     @PostMapping
     public ResponseEntity<Funcionario> salvar (@RequestBody FuncionarioDto funcionario){
         Funcionario funcionarioCriado = funcionarioService.salvar(funcionario);
