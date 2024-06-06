@@ -23,6 +23,9 @@ public class ErrorMessage {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> errors;
 
+    public ErrorMessage() {
+    }
+
     public ErrorMessage(HttpServletRequest request, HttpStatus status, String message) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();

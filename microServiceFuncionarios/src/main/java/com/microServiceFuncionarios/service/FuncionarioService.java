@@ -1,8 +1,9 @@
 package com.microServiceFuncionarios.service;
 
 import com.microServiceFuncionarios.entities.Funcionario;
+import com.microServiceFuncionarios.exceptions.EntityNotFoundException;
+import com.microServiceFuncionarios.exceptions.UnableException;
 import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class FuncionarioService {
             return funcionarioRepository.save(entity);
         } catch (DataIntegrityViolationException ex) {
             throw new CpfUniqueViolationException("Funcionário com um CPF já cadastrado");
+        } catch (RuntimeException ex) {
+            throw new UnableException("Dados inválidos");
         }
     }
 
@@ -39,9 +42,13 @@ public class FuncionarioService {
 
     public Funcionario inativarFuncionario(Long id) {
         Funcionario funcionario = buscarPorId(id);
-        if (funcionario.isAtivo()) {
+        if (!funcionario.isAtivo()) {
+            throw new UnableException("O funcionários já esta inativado");
+        }
+        else {
             funcionario.setAtivo(false);
         }
+        funcionarioRepository.save(funcionario);
         return funcionario;
     }
 
@@ -56,6 +63,8 @@ public class FuncionarioService {
     }
 
     public void deletarfuncionario(Long id) {
+        buscarPorId(id);
         funcionarioRepository.deleteById(id);
     }
+
 }
