@@ -1,4 +1,4 @@
-package entities;
+package com.microServiceFuncionarios.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -23,7 +23,7 @@ public class Funcionario {
     private String nome;
 
     @NotNull
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
     @NotNull

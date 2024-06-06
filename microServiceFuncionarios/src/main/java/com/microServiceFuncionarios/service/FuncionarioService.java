@@ -1,12 +1,15 @@
-package service;
+package com.microServiceFuncionarios.service;
 
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
+import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import repositories.FuncionarioRepository;
-import web.dto.FuncionarioDto;
-import web.dto.mapper.FuncionarioMapper;
+import com.microServiceFuncionarios.repositories.FuncionarioRepository;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
+import com.microServiceFuncionarios.web.dto.mapper.FuncionarioMapper;
 
 import java.util.List;
 
@@ -16,14 +19,19 @@ public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
 
-    public Funcionario salvar(Funcionario funcionario) {
- //       var entity = FuncionarioMapper.toFuncionario(funcionario);
-//        entity.setAtivo(true);
-        return funcionarioRepository.save(funcionario);
+    public Funcionario salvar(FuncionarioDto funcionario) {
+        try {
+            var entity = FuncionarioMapper.toFuncionario(funcionario);
+            entity.setAtivo(true);
+            return funcionarioRepository.save(entity);
+        } catch (DataIntegrityViolationException ex) {
+            throw new CpfUniqueViolationException("Funcionário com um CPF já cadastrado");
+        }
     }
 
     public Funcionario buscarPorId(Long id) {
-        return funcionarioRepository.findById(id).orElseThrow();
+        return funcionarioRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Funcionário id=%s não encontrado", id)));
     }
 
     public List<Funcionario> buscarTodos() {
@@ -32,10 +40,10 @@ public class FuncionarioService {
 
     public Funcionario inativarFuncionario(Long id) {
         Funcionario funcionario = buscarPorId(id);
-        if(funcionario.isAtivo()){
+        if (funcionario.isAtivo()) {
             funcionario.setAtivo(false);
         }
-    return funcionario;
+        return funcionario;
     }
 
     public Funcionario alterarFuncionario(Long id, Funcionario funcionario) {

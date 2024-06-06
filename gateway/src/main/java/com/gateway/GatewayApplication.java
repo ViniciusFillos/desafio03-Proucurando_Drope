@@ -19,7 +19,7 @@ public class GatewayApplication {
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder
 				.routes()
-				.route(r -> r.path("/funcionarios/**").uri("lb://msFuncionarios"))
+				.route(r -> r.path("/api/v1/funcionarios/**").uri("lb://msFuncionario"))
 				.build();
 	}
 

@@ -1,8 +1,7 @@
-package com.microServiceFuncionarios.entities;
+package com.microServiceFuncionarios.exceptions;
 
-import org.springframework.dao.DataIntegrityViolationException;
 
-public class CpfUniqueViolationException extends DataIntegrityViolationException {
+public class CpfUniqueViolationException extends RuntimeException {
     public CpfUniqueViolationException(String messagem) {
         super(messagem);
     }

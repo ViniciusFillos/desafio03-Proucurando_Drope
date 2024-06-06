@@ -1,26 +1,26 @@
-package web.controller;
+package com.microServiceFuncionarios.web.controller;
 
-import entities.Funcionario;
+import com.microServiceFuncionarios.entities.Funcionario;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.FuncionarioService;
-import web.dto.FuncionarioDto;
-import web.dto.mapper.FuncionarioMapper;
+import com.microServiceFuncionarios.service.FuncionarioService;
+import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1/funcionarios")
+@RequiredArgsConstructor
 public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
 
     @PostMapping
     public ResponseEntity<Funcionario> salvar (@RequestBody FuncionarioDto funcionario){
-        Funcionario funcionarioCriado = funcionarioService.salvar(FuncionarioMapper.toFuncionario(funcionario));
+        Funcionario funcionarioCriado = funcionarioService.salvar(funcionario);
         return new ResponseEntity<>(funcionarioCriado, HttpStatus.CREATED);
     }
 

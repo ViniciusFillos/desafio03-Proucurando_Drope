@@ -1,0 +1,3 @@
+2024-06-05 23:21:39.766749-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "CPF CHARACTER VARYING(11)": "'0112223348856' (13)"; SQL statement:
+insert into tb_funcionarios (ativo,cpf,data_nascimento,nome,id) values (?,?,?,?,default) [22001-224]
