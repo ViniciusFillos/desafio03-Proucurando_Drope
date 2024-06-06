@@ -1,10 +1,10 @@
 package com.microServicePropostas.services;
 
-import com.microServicePropostas.web.dto.PropostaDto;
+import com.microServicePropostas.exception.EntityNullException;
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.repositories.PropostaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -15,15 +15,25 @@ public class PropostaService {
     private final PropostaRepository propostaRepository;
 
     public Proposta save(Proposta proposta) {
+        if(proposta == null){
+            throw new EntityNullException(String.format("Os campos não devem ser nulos!"));
+        }
         return propostaRepository.save(proposta);
     }
 
     public List<Proposta> findAll() {
-        return propostaRepository.findAll();
+        try {
+            return propostaRepository.findAll();
+        }catch (EntityNotFoundException e){
+            throw new EntityNullException(e.getMessage());
+        }
+
     }
 
     public Proposta findById(Long id) {
-        return propostaRepository.findById(id).get();
+        return propostaRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Proposta id=%s não encontrado!", id))
+        );
     }
 
     public Proposta update(Long id,Proposta proposta) {
