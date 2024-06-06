@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -29,7 +28,7 @@ public class Funcionario {
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
 
-    @NonNull
+    @NotNull
     @Column(nullable = false)
     private LocalDate dataNascimento;
 
