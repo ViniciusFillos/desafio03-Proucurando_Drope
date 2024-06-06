@@ -1,4 +1,4 @@
-package com.microServiceVotacao.web.controller.dto;
+package com.microServiceVotacao.web.dto;
 
 import lombok.Data;
 

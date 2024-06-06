@@ -2,7 +2,7 @@ package com.microServiceVotacao.web.controller;
 
 import com.microServiceVotacao.entities.Votacao;
 import com.microServiceVotacao.services.VotacaoService;
-import com.microServiceVotacao.web.controller.dto.VotoDto;
+import com.microServiceVotacao.web.dto.VotoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

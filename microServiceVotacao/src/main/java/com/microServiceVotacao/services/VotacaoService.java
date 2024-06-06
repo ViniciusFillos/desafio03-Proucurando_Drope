@@ -6,7 +6,7 @@ import com.microServiceVotacao.exceptions.InvalidIdVotingExcption;
 import com.microServiceVotacao.exceptions.UnableVotingException;
 import com.microServiceVotacao.exceptions.UniqueVoteException;
 import com.microServiceVotacao.repositories.VotacaoRepository;
-import com.microServiceVotacao.web.controller.dto.VotoDto;
+import com.microServiceVotacao.web.dto.VotoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
