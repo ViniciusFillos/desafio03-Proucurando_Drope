@@ -46,12 +46,12 @@ public class FuncionarioController {
     }
 
     @PatchMapping("alterarfuncionario/{id}")
-    public Funcionario alterarfuncionario (@PathVariable Long id, Funcionario funcionario) {
+    public Funcionario alterarfuncionario (@PathVariable Long id, @RequestBody Funcionario funcionario) {
         Funcionario funcionarioalterado = funcionarioService.alterarFuncionario(id, funcionario);
         return new ResponseEntity<>(funcionarioalterado, HttpStatus.OK).getBody();
     }
 
-    @GetMapping("deletarfuncionario/{id}")
+    @GetMapping("deletarfuncionario/{id}")it
     public ResponseEntity<Void> deletarPorId(@PathVariable Long id) {
         funcionarioService.deletarfuncionario(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
