@@ -1,10 +1,11 @@
 spring:
   application:
-    name: msFuncionarios
+    name: msVotacao
+
   # DATASOURCE
   datasource:
     driverClassName: org.h2.Driver
-    url: jdbc:h2:file:./msFuncionario
+    url: jdbc:h2:file:./msVotacao
     username: sa
     password:
   # H2 CLIENT
@@ -21,11 +22,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
 server:
   port: 0
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
   instance:
-    instance-id: ${spring.application.name}:${spring.application.intance_id:${random.value}}
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+      prefer-ip-address:true

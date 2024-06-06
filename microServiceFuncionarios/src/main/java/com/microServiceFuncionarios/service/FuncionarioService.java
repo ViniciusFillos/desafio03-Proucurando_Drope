@@ -6,7 +6,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import com.microServiceFuncionarios.repositories.FuncionarioRepository;
 import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 import com.microServiceFuncionarios.web.dto.mapper.FuncionarioMapper;
