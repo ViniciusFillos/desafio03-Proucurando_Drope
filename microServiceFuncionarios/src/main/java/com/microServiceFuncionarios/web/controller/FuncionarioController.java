@@ -2,6 +2,7 @@ package com.microServiceFuncionarios.web.controller;
 
 import com.microServiceFuncionarios.entities.Funcionario;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class FuncionarioController {
 
     @Transactional
     @PostMapping
-    public ResponseEntity<Funcionario> salvar (@RequestBody FuncionarioDto funcionario){
+    public ResponseEntity<Funcionario> salvar (@RequestBody @Valid FuncionarioDto funcionario){
         Funcionario funcionarioCriado = funcionarioService.salvar(funcionario);
         return new ResponseEntity<>(funcionarioCriado, HttpStatus.CREATED);
     }
@@ -39,7 +40,7 @@ public class FuncionarioController {
     }
 
     @PatchMapping("inativarfuncionario/{id}")
-    public ResponseEntity<Funcionario> inativarFuncionario(@PathVariable  Long id) {
+    public ResponseEntity<Funcionario> inativarFuncionario(@PathVariable Long id) {
         Funcionario funcionarioinativo = funcionarioService.inativarFuncionario(id);
         return ResponseEntity.ok().body(funcionarioinativo);
     }

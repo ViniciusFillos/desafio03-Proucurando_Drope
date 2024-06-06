@@ -4,6 +4,7 @@ import com.microServiceFuncionarios.entities.Funcionario;
 import com.microServiceFuncionarios.exceptions.EntityNotFoundException;
 import com.microServiceFuncionarios.exceptions.UnableException;
 import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ public class FuncionarioService {
         return funcionario;
     }
 
+    @Transactional
     public Funcionario alterarFuncionario(Long id, Funcionario funcionario) {
         Funcionario funcionarioAtualizado = buscarPorId(id);
         funcionarioAtualizado.setNome(funcionario.getNome());
