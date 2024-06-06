@@ -1,9 +1,11 @@
 package com.microServiceFuncionarios.service;
 
 import com.microServiceFuncionarios.entities.Funcionario;
+import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
 import com.microServiceFuncionarios.repositories.FuncionarioRepository;
 import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 import com.microServiceFuncionarios.web.dto.mapper.FuncionarioMapper;
@@ -17,13 +19,18 @@ public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
 
     public Funcionario salvar(FuncionarioDto funcionario) {
-        var entity = FuncionarioMapper.toFuncionario(funcionario);
-        entity.setAtivo(true);
-        return funcionarioRepository.save(entity);
+        try {
+            var entity = FuncionarioMapper.toFuncionario(funcionario);
+            entity.setAtivo(true);
+            return funcionarioRepository.save(entity);
+        } catch (DataIntegrityViolationException ex) {
+            throw new CpfUniqueViolationException("Funcionário com um CPF já cadastrado");
+        }
     }
 
     public Funcionario buscarPorId(Long id) {
-        return funcionarioRepository.findById(id).orElseThrow();
+        return funcionarioRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Funcionário id=%s não encontrado", id)));
     }
 
     public List<Funcionario> buscarTodos() {

@@ -2,6 +2,7 @@ package com.microServiceFuncionarios.web.controller;
 
 import com.microServiceFuncionarios.entities.Funcionario;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
