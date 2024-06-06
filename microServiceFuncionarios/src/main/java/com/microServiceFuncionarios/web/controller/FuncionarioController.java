@@ -7,19 +7,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.FuncionarioService;
 import web.dto.FuncionarioDto;
+import web.dto.mapper.FuncionarioMapper;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/funcionarios")
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/funcionarios")
 public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
 
     @PostMapping
     public ResponseEntity<Funcionario> salvar (@RequestBody FuncionarioDto funcionario){
-        Funcionario funcionarioCriado = funcionarioService.salvar(funcionario);
+        Funcionario funcionarioCriado = funcionarioService.salvar(FuncionarioMapper.toFuncionario(funcionario));
         return new ResponseEntity<>(funcionarioCriado, HttpStatus.CREATED);
     }
 

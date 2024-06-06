@@ -16,10 +16,10 @@ public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
 
-    public Funcionario salvar(FuncionarioDto funcionario) {
-        var entity = FuncionarioMapper.toFuncionario(funcionario);
-        entity.setAtivo(true);
-        return funcionarioRepository.save(entity);
+    public Funcionario salvar(Funcionario funcionario) {
+ //       var entity = FuncionarioMapper.toFuncionario(funcionario);
+//        entity.setAtivo(true);
+        return funcionarioRepository.save(funcionario);
     }
 
     public Funcionario buscarPorId(Long id) {
