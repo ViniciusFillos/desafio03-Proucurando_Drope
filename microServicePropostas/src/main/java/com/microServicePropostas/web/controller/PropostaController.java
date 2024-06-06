@@ -4,6 +4,7 @@ import com.microServicePropostas.web.dto.PropostaDto;
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.services.PropostaService;
 import com.microServicePropostas.web.dto.mapper.PropostaMapper;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,19 +34,19 @@ public class PropostaController {
     }
 
     @PostMapping
-    public ResponseEntity<Proposta> create( @RequestBody PropostaDto proposta) {
+    public ResponseEntity<Proposta> create(@RequestBody PropostaDto proposta) {
         Proposta criado = propostaService.save(PropostaMapper.toProposta(proposta));
         return new ResponseEntity <>(criado, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Proposta> update(@PathParam("/{id}") Long id, @RequestBody Proposta proposta) {
+    public ResponseEntity<Proposta> update(@PathVariable Long id, @RequestBody Proposta proposta) {
         Proposta atualizado = propostaService.update(id ,proposta);
         return new ResponseEntity<>(atualizado, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBrand(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         propostaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

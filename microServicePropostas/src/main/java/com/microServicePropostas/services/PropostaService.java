@@ -33,6 +33,7 @@ public class PropostaService {
 
     public Proposta update(Long id,Proposta proposta) {
         Proposta prop = findById(id);
+        prop.setId(proposta.getId());
         prop.setTitulo(proposta.getTitulo());
         prop.setDescricao(proposta.getDescricao());
         propostaRepository.save(prop);
