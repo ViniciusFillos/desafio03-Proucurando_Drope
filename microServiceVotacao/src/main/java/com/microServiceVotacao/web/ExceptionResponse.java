@@ -1,4 +1,4 @@
-package com.microServiceVotacao.exceptions;
+package com.microServiceVotacao.web;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,8 +1,8 @@
-package com.microServiceVotacao.exceptions.handler;
+package com.microServiceVotacao.web.exceptions;
 
 import com.microServiceVotacao.exceptions.ActiveVotingException;
-import com.microServiceVotacao.exceptions.ExceptionResponse;
 import com.microServiceVotacao.exceptions.UniqueVoteException;
+import com.microServiceVotacao.web.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jmx.export.UnableToRegisterMBeanException;
@@ -15,7 +15,7 @@ import java.util.Date;
 
 @RestController
 @ControllerAdvice
-public class ExceptionHandler extends ResponseEntityExceptionHandler {
+public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {

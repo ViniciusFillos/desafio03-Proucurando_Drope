@@ -1,5 +1,6 @@
 package com.microServiceFuncionarios.web.exception;
 
+
 import com.microServiceFuncionarios.exceptions.UnableException;
 import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
 import com.microServiceFuncionarios.exceptions.EntityNotFoundException;
