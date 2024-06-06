@@ -2,9 +2,12 @@ package com.microServicePropostas.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @Data
+@Getter
+@EqualsAndHashCode
 @Entity
 @Table(name = "proposta")
 public class Proposta {

@@ -22,12 +22,7 @@ public class PropostaService {
     }
 
     public List<Proposta> findAll() {
-        try {
             return propostaRepository.findAll();
-        }catch (EntityNotFoundException e){
-            throw new EntityNullException(e.getMessage());
-        }
-
     }
 
     public Proposta findById(Long id) {
@@ -40,7 +35,8 @@ public class PropostaService {
         Proposta prop = findById(id);
         prop.setTitulo(proposta.getTitulo());
         prop.setDescricao(proposta.getDescricao());
-        return propostaRepository.save(prop);
+        propostaRepository.save(prop);
+        return prop;
     }
 
     public void delete(Long id) {
