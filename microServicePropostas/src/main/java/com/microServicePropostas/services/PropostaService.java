@@ -1,28 +1,42 @@
 package com.microServicePropostas.services;
 
+import com.microServicePropostas.client.FuncionarioClient;
 import com.microServicePropostas.exception.EntityNullException;
 import com.microServicePropostas.entities.Proposta;
+import com.microServicePropostas.exception.VotacaoAtivaException;
+import com.microServicePropostas.exception.VotacaoExpiradaException;
+import com.microServicePropostas.exception.VotoUnicoException;
 import com.microServicePropostas.repositories.PropostaRepository;
+import com.microServicePropostas.web.dto.FuncionarioDto;
+import com.microServicePropostas.web.dto.VotacaoDto;
+import com.microServicePropostas.web.dto.VotoDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PropostaService {
 
+    private final FuncionarioClient funcionarioClient;
     private final PropostaRepository propostaRepository;
+    private Boolean votacaoAtiva = false;
+    private VotacaoDto votacaoDto = new VotacaoDto();
+    private List<Long> idFuncionariosVotados = new ArrayList<>();
 
     public Proposta save(Proposta proposta) {
-        if(proposta == null){
+        if (proposta == null) {
             throw new EntityNullException(String.format("Os campos não devem ser nulos!"));
         }
         return propostaRepository.save(proposta);
     }
 
     public List<Proposta> findAll() {
-            return propostaRepository.findAll();
+        return propostaRepository.findAll();
     }
 
     public Proposta findById(Long id) {
@@ -31,7 +45,7 @@ public class PropostaService {
         );
     }
 
-    public Proposta update(Long id,Proposta proposta) {
+    public Proposta update(Long id, Proposta proposta) {
         Proposta prop = findById(id);
         prop.setId(proposta.getId());
         prop.setTitulo(proposta.getTitulo());
@@ -42,5 +56,33 @@ public class PropostaService {
 
     public void delete(Long id) {
         propostaRepository.deleteById(id);
+    }
+
+    public VotacaoDto iniciarVotacao(Long idProposta) {
+        Proposta prop = findById(idProposta);
+        if (votacaoAtiva) throw new VotacaoAtivaException();
+        votacaoDto.setDataCriacao(LocalDateTime.now().plusMinutes(1));
+        votacaoDto.setIdProposta(prop.getId());
+        votacaoDto.setTitulo(prop.getTitulo());
+        votacaoDto.setDescricao(prop.getDescricao());
+        votacaoDto.setAtiva(true);
+        votacaoDto.setVotosContras(0);
+        votacaoDto.setVotosPositivos(0);
+        votacaoAtiva = true;
+        return votacaoDto;
+    }
+
+    public void mudarStatusVotacaoAtivo() {
+        votacaoAtiva = false;
+    }
+
+    public VotoDto votar(VotoDto votoDto) {
+        if (votacaoAtiva) throw new VotacaoAtivaException();
+        funcionarioClient.buscarPorId(votoDto.getIdFuncionario());
+        if (idFuncionariosVotados.contains(votoDto.getIdFuncionario())) throw new VotoUnicoException();
+        if (votacaoDto.getDataCriacao().isAfter(LocalDateTime.now())) throw new VotacaoExpiradaException();
+        idFuncionariosVotados.add(votoDto.getIdFuncionario());
+        // IMPLEMENTAR KAFKA: Aqui manda o voto pro kafka
+        return votoDto;
     }
 }

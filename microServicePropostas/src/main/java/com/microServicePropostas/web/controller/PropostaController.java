@@ -3,6 +3,8 @@ package com.microServicePropostas.web.controller;
 import com.microServicePropostas.web.dto.PropostaDto;
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.services.PropostaService;
+import com.microServicePropostas.web.dto.VotacaoDto;
+import com.microServicePropostas.web.dto.VotoDto;
 import com.microServicePropostas.web.dto.mapper.PropostaMapper;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.PathParam;
@@ -50,5 +52,23 @@ public class PropostaController {
         propostaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/votacao/{idProposta}")
+    public ResponseEntity<VotacaoDto> iniciarVotacao(@PathVariable Long idProposta){
+        VotacaoDto dto = propostaService.iniciarVotacao(idProposta);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/votacao/ancerrar")
+    public void mudarStatusVotacaoAtivo(){
+        propostaService.mudarStatusVotacaoAtivo();
+    }
+
+    @PostMapping("/votar")
+    public ResponseEntity<VotoDto> votar(@RequestBody VotoDto votoDto){
+        VotoDto dto = propostaService.votar(votoDto);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
 
 }

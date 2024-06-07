@@ -51,7 +51,7 @@ public class FuncionarioController {
         return new ResponseEntity<>(funcionarioalterado, HttpStatus.OK).getBody();
     }
 
-    @GetMapping("deletarfuncionario/{id}")it
+    @GetMapping("deletarfuncionario/{id}")
     public ResponseEntity<Void> deletarPorId(@PathVariable Long id) {
         funcionarioService.deletarfuncionario(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
