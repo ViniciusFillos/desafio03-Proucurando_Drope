@@ -42,7 +42,7 @@ management:
     health:
       show-details: always
 
-#kAFKA
+#KAFKA
 topicos:
   request:
     topic: "voto"
