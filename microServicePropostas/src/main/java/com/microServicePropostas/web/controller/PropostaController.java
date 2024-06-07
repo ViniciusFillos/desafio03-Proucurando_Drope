@@ -69,6 +69,4 @@ public class PropostaController {
         VotoDto dto = propostaService.votar(votoDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
-
-
 }

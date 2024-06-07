@@ -13,5 +13,4 @@ public class Votacao {
     private Long idProposta;
     private Integer votosPositivos;
     private Integer votosContras;
-    private Boolean ativa;
 }

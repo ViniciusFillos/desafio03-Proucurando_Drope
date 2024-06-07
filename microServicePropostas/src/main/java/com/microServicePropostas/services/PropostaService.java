@@ -1,6 +1,7 @@
 package com.microServicePropostas.services;
 
 import com.microServicePropostas.client.FuncionarioClient;
+import com.microServicePropostas.client.VotacaoClient;
 import com.microServicePropostas.exception.EntityNullException;
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.exception.VotacaoAtivaException;
@@ -23,6 +24,7 @@ import java.util.List;
 public class PropostaService {
 
     private final FuncionarioClient funcionarioClient;
+    private final VotacaoClient votacaoClient;
     private final PropostaRepository propostaRepository;
     private Boolean votacaoAtiva = false;
     private VotacaoDto votacaoDto = new VotacaoDto();
@@ -61,6 +63,7 @@ public class PropostaService {
     public VotacaoDto iniciarVotacao(Long idProposta) {
         Proposta prop = findById(idProposta);
         if (votacaoAtiva) throw new VotacaoAtivaException();
+        votacaoClient.iniciarVotacao(idProposta);
         votacaoDto.setDataCriacao(LocalDateTime.now().plusMinutes(1));
         votacaoDto.setIdProposta(prop.getId());
         votacaoDto.setTitulo(prop.getTitulo());
