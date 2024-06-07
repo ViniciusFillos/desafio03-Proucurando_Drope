@@ -39,19 +39,19 @@ public class FuncionarioController {
         return new ResponseEntity<>(todosFuncionarios, HttpStatus.OK);
     }
 
-    @PatchMapping("inativarfuncionario/{id}")
+    @PatchMapping("inativar/{id}")
     public ResponseEntity<Funcionario> inativarFuncionario(@PathVariable Long id) {
         Funcionario funcionarioinativo = funcionarioService.inativarFuncionario(id);
         return ResponseEntity.ok().body(funcionarioinativo);
     }
 
-    @PatchMapping("alterarfuncionario/{id}")
+    @PutMapping("alterar/{id}")
     public Funcionario alterarfuncionario (@PathVariable Long id, @RequestBody Funcionario funcionario) {
         Funcionario funcionarioalterado = funcionarioService.alterarFuncionario(id, funcionario);
         return new ResponseEntity<>(funcionarioalterado, HttpStatus.OK).getBody();
     }
 
-    @GetMapping("deletarfuncionario/{id}")
+    @DeleteMapping("deletar/{id}")
     public ResponseEntity<Void> deletarPorId(@PathVariable Long id) {
         funcionarioService.deletarfuncionario(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
