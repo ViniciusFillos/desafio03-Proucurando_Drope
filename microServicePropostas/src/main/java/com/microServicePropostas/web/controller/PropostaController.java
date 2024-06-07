@@ -69,4 +69,9 @@ public class PropostaController {
         VotoDto dto = propostaService.votar(votoDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
+
+    @PostMapping("/votar")
+    public String enviarVoto(@RequestBody VotoDto votoDto) {
+        return propostaService.integrarVoto(votoDto);
+    }
 }
