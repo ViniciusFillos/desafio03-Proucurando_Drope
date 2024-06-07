@@ -44,3 +44,8 @@ management:
   endpoint:
     health:
       show-details: always
+
+#KAFKA
+topicos:
+  request:
+    topic: "voto"
