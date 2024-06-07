@@ -23,6 +23,7 @@ spring:
           format_sql: true
 server:
   port: 0
+#EUREKA
 eureka:
   client:
     service-url:
@@ -30,3 +31,13 @@ eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.intance_id:${random.value}}
     prefer-ip-address: true
+
+#ACTUATOR
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
