@@ -7,6 +7,7 @@ import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.exception.VotacaoAtivaException;
 import com.microServicePropostas.exception.VotacaoExpiradaException;
 import com.microServicePropostas.exception.VotoUnicoException;
+import com.microServicePropostas.producer.VotoProducer;
 import com.microServicePropostas.repositories.PropostaRepository;
 import com.microServicePropostas.web.dto.FuncionarioDto;
 import com.microServicePropostas.web.dto.VotacaoDto;
@@ -26,6 +27,7 @@ public class PropostaService {
     private final FuncionarioClient funcionarioClient;
     private final VotacaoClient votacaoClient;
     private final PropostaRepository propostaRepository;
+    private final VotoProducer votoProducer;
     private Boolean votacaoAtiva = false;
     private VotacaoDto votacaoDto = new VotacaoDto();
     private List<Long> idFuncionariosVotados = new ArrayList<>();
@@ -87,5 +89,13 @@ public class PropostaService {
         idFuncionariosVotados.add(votoDto.getIdFuncionario());
         // IMPLEMENTAR KAFKA: Aqui manda o voto pro kafka
         return votoDto;
+    }
+
+    public String integrarVoto(VotoDto voto) {
+        try{
+            return  votoProducer.enviarVoto(voto);
+        }catch (Exception e){
+            throw new EntityNullException("Erro ao enviar voto!");
+        }
     }
 }
