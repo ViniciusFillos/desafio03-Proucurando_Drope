@@ -2,11 +2,8 @@ package com.microServicePropostas.services;
 
 import com.microServicePropostas.client.FuncionarioClient;
 import com.microServicePropostas.client.VotacaoClient;
-import com.microServicePropostas.exception.EntityNullException;
+import com.microServicePropostas.exception.*;
 import com.microServicePropostas.entities.Proposta;
-import com.microServicePropostas.exception.VotacaoAtivaException;
-import com.microServicePropostas.exception.VotacaoExpiradaException;
-import com.microServicePropostas.exception.VotoUnicoException;
 import com.microServicePropostas.producer.VotoProducer;
 import com.microServicePropostas.repositories.PropostaRepository;
 import com.microServicePropostas.web.dto.FuncionarioDto;
@@ -64,7 +61,7 @@ public class PropostaService {
 
     public VotacaoDto iniciarVotacao(Long idProposta) {
         Proposta prop = findById(idProposta);
-        if (votacaoAtiva) throw new VotacaoAtivaException();
+        if (votacaoAtiva) throw new VotacaoJaAativadaException();
         votacaoClient.iniciarVotacao(idProposta);
         votacaoDto.setDataCriacao(LocalDateTime.now().plusMinutes(1));
         votacaoDto.setIdProposta(prop.getId());
@@ -83,7 +80,11 @@ public class PropostaService {
 
     public VotoDto votar(VotoDto votoDto) {
         if (!votacaoAtiva) throw new VotacaoAtivaException();
-        funcionarioClient.buscarPorId(votoDto.getIdFuncionario());
+        try {
+            funcionarioClient.buscarPorId(votoDto.getIdFuncionario());
+        }catch (RuntimeException ex){
+            throw new IdNotFoundException();
+        }
         if (idFuncionariosVotados.contains(votoDto.getIdFuncionario())) throw new VotoUnicoException();
         if (votacaoDto.getDataCriacao().isBefore(LocalDateTime.now())) throw new VotacaoExpiradaException();
         idFuncionariosVotados.add(votoDto.getIdFuncionario());
