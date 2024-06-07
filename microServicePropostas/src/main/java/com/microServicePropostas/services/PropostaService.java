@@ -82,10 +82,10 @@ public class PropostaService {
     }
 
     public VotoDto votar(VotoDto votoDto) {
-        if (votacaoAtiva) throw new VotacaoAtivaException();
+        if (!votacaoAtiva) throw new VotacaoAtivaException();
         funcionarioClient.buscarPorId(votoDto.getIdFuncionario());
         if (idFuncionariosVotados.contains(votoDto.getIdFuncionario())) throw new VotoUnicoException();
-        if (votacaoDto.getDataCriacao().isAfter(LocalDateTime.now())) throw new VotacaoExpiradaException();
+        if (votacaoDto.getDataCriacao().isBefore(LocalDateTime.now())) throw new VotacaoExpiradaException();
         idFuncionariosVotados.add(votoDto.getIdFuncionario());
         // IMPLEMENTAR KAFKA: Aqui manda o voto pro kafka
         return votoDto;
