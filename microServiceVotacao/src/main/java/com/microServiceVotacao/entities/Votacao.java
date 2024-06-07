@@ -6,8 +6,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "votacao")
-public class Votacao {
-
+public class Votacao {git
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
