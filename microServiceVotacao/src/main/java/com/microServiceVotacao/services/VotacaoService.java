@@ -13,18 +13,14 @@ public class VotacaoService {
 
     private final VotacaoRepository votacaoRepository;
 
-    Votacao votacao = new Votacao();
+    public static Votacao votacao = new Votacao();
 
     public List<Votacao> findAll() {
         return votacaoRepository.findAll();
     }
 
     public ResultadoVotacaoDto encerrar() {
-        // +++++++++++++++++++++++++++++++++++
-        // AQUI IMPLEMENTAMOS O KAFKA CONSUMER
-        // +++++++++++++++++++++++++++++++++++
-        // votacao.setVotosContras( KAFKA RECUPERA DADOS );
-        // votacao.setVotosPositivos( KAFKA RECUPERA DADOS ));
+
         votacaoRepository.save(votacao);
 
         ResultadoVotacaoDto resultado = new ResultadoVotacaoDto();
