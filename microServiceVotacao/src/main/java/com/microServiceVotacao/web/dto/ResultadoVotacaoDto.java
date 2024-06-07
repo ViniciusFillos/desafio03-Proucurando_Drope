@@ -5,9 +5,7 @@ import lombok.Data;
 @Data
 public class ResultadoVotacaoDto {
 
-    private Long id;
-    private String titulo;
-    private String descricao;
+    private Long idProposta;
     private Integer votosPositivos;
     private Integer votosContra;
     private String resultado;

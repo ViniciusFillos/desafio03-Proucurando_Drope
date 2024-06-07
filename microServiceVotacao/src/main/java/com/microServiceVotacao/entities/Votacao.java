@@ -6,12 +6,11 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "votacao")
-public class Votacao {git
+public class Votacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long idProposta;
     private Integer votosPositivos;
     private Integer votosContras;
-    private Boolean ativa;
 }

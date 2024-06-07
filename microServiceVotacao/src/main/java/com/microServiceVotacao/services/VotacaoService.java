@@ -1,7 +1,6 @@
 package com.microServiceVotacao.services;
 
 import com.microServiceVotacao.entities.Votacao;
-import com.microServiceVotacao.exceptions.*;
 import com.microServiceVotacao.repositories.VotacaoRepository;
 import com.microServiceVotacao.web.dto.ResultadoVotacaoDto;
 import lombok.RequiredArgsConstructor;
@@ -13,28 +12,36 @@ import java.util.List;
 public class VotacaoService {
 
     private final VotacaoRepository votacaoRepository;
-    private Boolean votacaoAtiva = false;
+
+    Votacao votacao = new Votacao();
 
     public List<Votacao> findAll() {
         return votacaoRepository.findAll();
     }
 
-    public ResultadoVotacaoDto encerrar(Long idVotacao) {
-        Votacao votacao = votacaoRepository.findById(idVotacao).orElseThrow(InvalidIdVotingExcption::new);
-        if (!votacaoAtiva) throw new UnableVotingException();
+    public ResultadoVotacaoDto encerrar() {
+        // +++++++++++++++++++++++++++++++++++
+        // AQUI IMPLEMENTAMOS O KAFKA CONSUMER
+        // +++++++++++++++++++++++++++++++++++
+        // votacao.setVotosContras( KAFKA RECUPERA DADOS );
+        // votacao.setVotosPositivos( KAFKA RECUPERA DADOS ));
+        votacaoRepository.save(votacao);
 
         ResultadoVotacaoDto resultado = new ResultadoVotacaoDto();
 
-        resultado.setId(votacao.getId());
+        resultado.setIdProposta(votacao.getIdProposta());
         resultado.setVotosPositivos(votacao.getVotosPositivos());
         resultado.setVotosContra(votacao.getVotosContras());
         if (votacao.getVotosPositivos().equals(votacao.getVotosContras())) resultado.setResultado("Empate!");
         if (votacao.getVotosPositivos() > votacao.getVotosContras()) resultado.setResultado("Aprovada!");
         if (votacao.getVotosPositivos() < votacao.getVotosContras()) resultado.setResultado("Rejeitada!");
 
-        votacao.setAtiva(false);
-        votacaoRepository.save(votacao);
-        votacaoAtiva = false;
         return resultado;
+    }
+
+    public void iniciarVotacao(Long idProposta) {
+        votacao.setIdProposta(idProposta);
+        votacao.setVotosPositivos(0);
+        votacao.setVotosContras(0);
     }
 }
