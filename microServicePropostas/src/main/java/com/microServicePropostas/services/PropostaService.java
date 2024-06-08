@@ -30,7 +30,7 @@ public class PropostaService {
     private final VotoProducer votoProducer;
     private Boolean votacaoAtiva = false;
     private VotacaoDto votacaoDto = new VotacaoDto();
-    private List<Long> idFuncionariosVotados = new ArrayList<>();
+    private List<Long> idFuncionariosVotados;
 
     public Proposta save(Proposta proposta) {
         if (proposta == null) {
@@ -74,6 +74,7 @@ public class PropostaService {
         votacaoDto.setVotosContras(0);
         votacaoDto.setVotosPositivos(0);
         votacaoAtiva = true;
+        idFuncionariosVotados = new ArrayList<>();
         return votacaoDto;
     }
 
