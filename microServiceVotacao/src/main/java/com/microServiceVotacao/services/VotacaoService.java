@@ -1,6 +1,8 @@
 package com.microServiceVotacao.services;
 
+import com.microServiceVotacao.client.ClientProposta;
 import com.microServiceVotacao.entities.Votacao;
+import com.microServiceVotacao.exceptions.EntityNullException;
 import com.microServiceVotacao.repositories.VotacaoRepository;
 import com.microServiceVotacao.web.dto.ResultadoVotacaoDto;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +17,15 @@ public class VotacaoService {
 
     public static Votacao votacao = new Votacao();
 
+    private final ClientProposta clientProposta;
+
     public List<Votacao> findAll() {
         return votacaoRepository.findAll();
     }
 
     public ResultadoVotacaoDto encerrar() {
-
+        if(votacao.getIdProposta() == null || votacao.getVotosContras() == null || votacao.getVotosPositivos() == null) throw new EntityNullException();
         votacaoRepository.save(votacao);
-
         ResultadoVotacaoDto resultado = new ResultadoVotacaoDto();
 
         resultado.setIdProposta(votacao.getIdProposta());
@@ -31,6 +34,8 @@ public class VotacaoService {
         if (votacao.getVotosPositivos().equals(votacao.getVotosContras())) resultado.setResultado("Empate!");
         if (votacao.getVotosPositivos() > votacao.getVotosContras()) resultado.setResultado("Aprovada!");
         if (votacao.getVotosPositivos() < votacao.getVotosContras()) resultado.setResultado("Rejeitada!");
+        clientProposta.mudarStatusVotacaoAtivo();
+        deixarVotacaoNula();
 
         return resultado;
     }
@@ -39,5 +44,11 @@ public class VotacaoService {
         votacao.setIdProposta(idProposta);
         votacao.setVotosPositivos(0);
         votacao.setVotosContras(0);
+    }
+
+    public void deixarVotacaoNula(){
+        votacao.setIdProposta(null);
+        votacao.setVotosPositivos(null);
+        votacao.setVotosContras(null);
     }
 }
