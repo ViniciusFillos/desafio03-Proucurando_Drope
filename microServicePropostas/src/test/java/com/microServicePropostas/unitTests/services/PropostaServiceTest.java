@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.exception.EntityNotFoundException;
-import com.microServicePropostas.exception.EntityNullException;
+import com.microServicePropostas.exception.EntityInvalidException;
 import com.microServicePropostas.mocks.MockProposta;
 import com.microServicePropostas.repositories.PropostaRepository;
 import com.microServicePropostas.services.PropostaService;
+import com.microServicePropostas.web.dto.PropostaDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -56,8 +57,8 @@ public class PropostaServiceTest {
     @Test
     void salvar_ComDadosNulos_RetornarEntityNullException(){
         Proposta proposta = input.mockEntity();
-        when(propostaRepository.save(any())).thenThrow(EntityNullException.class);
-        assertThatThrownBy(() -> propostaService.save(proposta)).isInstanceOf(EntityNullException.class);
+        when(propostaRepository.save(any())).thenThrow(EntityInvalidException.class);
+        assertThatThrownBy(() -> propostaService.save(proposta)).isInstanceOf(EntityInvalidException.class);
     }
 
     @Test
@@ -112,7 +113,7 @@ public class PropostaServiceTest {
     @Test
     void alterarProposta_ComDadosValidos_RetornaProposta() {
         Proposta proposta = input.mockEntity(1);
-        Proposta propostaAlterada = input.mockEntity(1);
+        PropostaDto propostaAlterada = input.mockDto(1);
         propostaAlterada.setTitulo("Titulo do proposta Atualizado");
         propostaAlterada.setDescricao("Descricao do proposta Atualizada");
         when(propostaRepository.findById(1L)).thenReturn(Optional.of(proposta));
@@ -122,7 +123,6 @@ public class PropostaServiceTest {
         assertNotNull(result.getId());
         assertNotNull(result.getDescricao());
         assertNotNull(result.getTitulo());
-        assertEquals(propostaAlterada.getId(), result.getId());
         assertEquals(propostaAlterada.getTitulo(), result.getTitulo());
         assertEquals(propostaAlterada.getDescricao(), result.getDescricao());
     }

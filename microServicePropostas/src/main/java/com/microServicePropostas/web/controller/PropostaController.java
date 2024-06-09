@@ -42,9 +42,9 @@ public class PropostaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Proposta> update(@PathVariable Long id, @RequestBody Proposta proposta) {
-        Proposta atualizado = propostaService.update(id ,proposta);
-        return new ResponseEntity<>(atualizado, HttpStatus.OK);
+    public ResponseEntity<Proposta> update(@PathVariable Long id, @RequestBody PropostaDto proposta) {
+        Proposta propostaAtualizada = propostaService.update(id ,proposta);
+        return new ResponseEntity<>(propostaAtualizada, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
