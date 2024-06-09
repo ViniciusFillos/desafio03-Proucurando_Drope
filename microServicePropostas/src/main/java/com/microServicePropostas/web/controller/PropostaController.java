@@ -54,8 +54,8 @@ public class PropostaController {
     }
 
     @PostMapping("/votacao/{idProposta}")
-    public ResponseEntity<VotacaoDto> iniciarVotacao(@PathVariable Long idProposta){
-        VotacaoDto dto = propostaService.iniciarVotacao(idProposta);
+    public ResponseEntity<VotacaoDto> iniciarVotacao(@PathVariable Long idProposta, @RequestParam(defaultValue = "1", required = false) Integer limite){
+        VotacaoDto dto = propostaService.iniciarVotacao(idProposta, limite);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
