@@ -17,8 +17,14 @@ public class VotacaoController {
 
     private final VotacaoService votacaoService;
 
-    @PatchMapping("/encerrar")
-    public ResponseEntity<ResultadoVotacaoDto> encerrarVotacao () {
+
+    @GetMapping
+    public ResponseEntity<List<Votacao>> getAll() {
+        return new ResponseEntity<>(votacaoService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping("/encerrar")
+    public ResponseEntity<ResultadoVotacaoDto> encerrarVotacao() {
         ResultadoVotacaoDto resultado = votacaoService.encerrar();
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
@@ -26,10 +32,5 @@ public class VotacaoController {
     @PostMapping("/iniciar/{idProposta}")
     public void iniciarVotacao(@PathVariable Long idProposta) {
         votacaoService.iniciarVotacao(idProposta);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Votacao>> getAll () {
-        return new ResponseEntity<>(votacaoService.findAll(), HttpStatus.OK);
     }
 }

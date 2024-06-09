@@ -7,6 +7,7 @@ import com.microServiceVotacao.repositories.VotacaoRepository;
 import com.microServiceVotacao.web.dto.ResultadoVotacaoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -24,7 +25,8 @@ public class VotacaoService {
     }
 
     public ResultadoVotacaoDto encerrar() {
-        if(votacao.getIdProposta() == null || votacao.getVotosContras() == null || votacao.getVotosPositivos() == null) throw new EntityNullException();
+        if (votacao.getIdProposta() == null || votacao.getVotosContras() == null || votacao.getVotosPositivos() == null)
+            throw new EntityNullException("Nenhuma votação está ativa no momento!");
         votacaoRepository.save(votacao);
         ResultadoVotacaoDto resultado = new ResultadoVotacaoDto();
 
@@ -35,8 +37,8 @@ public class VotacaoService {
         if (votacao.getVotosPositivos() > votacao.getVotosContras()) resultado.setResultado("Aprovada!");
         if (votacao.getVotosPositivos() < votacao.getVotosContras()) resultado.setResultado("Rejeitada!");
         clientProposta.mudarStatusVotacaoAtivo();
-        deixarVotacaoNula();
 
+        deixarVotacaoNula();
         return resultado;
     }
 
@@ -46,7 +48,7 @@ public class VotacaoService {
         votacao.setVotosContras(0);
     }
 
-    public void deixarVotacaoNula(){
+    public void deixarVotacaoNula() {
         votacao.setIdProposta(null);
         votacao.setVotosPositivos(null);
         votacao.setVotosContras(null);

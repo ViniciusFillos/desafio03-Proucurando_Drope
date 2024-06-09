@@ -34,7 +34,7 @@ public class PropostaService {
 
     public Proposta save(Proposta proposta) {
         if (proposta == null) {
-            throw new EntityNullException(String.format("Os campos não devem ser nulos!"));
+            throw new EntityNullException("Os campos não devem ser nulos!");
         }
         return propostaRepository.save(proposta);
     }
@@ -62,11 +62,11 @@ public class PropostaService {
         propostaRepository.deleteById(id);
     }
 
-    public VotacaoDto iniciarVotacao(Long idProposta) {
+    public VotacaoDto iniciarVotacao(Long idProposta, Integer limite) {
         Proposta prop = findById(idProposta);
-        if (votacaoAtiva) throw new VotacaoAtivaException();
+        if (votacaoAtiva) throw new VotacaoAtivaException("Outra votação está ativa no momento!");
         votacaoClient.iniciarVotacao(idProposta);
-        votacaoDto.setDataCriacao(LocalDateTime.now().plusMinutes(1));
+        votacaoDto.setDataCriacao(LocalDateTime.now().plusMinutes(limite));
         votacaoDto.setIdProposta(prop.getId());
         votacaoDto.setTitulo(prop.getTitulo());
         votacaoDto.setDescricao(prop.getDescricao());
@@ -83,19 +83,18 @@ public class PropostaService {
     }
 
     public VotoDto votar(VotoDto votoDto) {
-        if (!votacaoAtiva) throw new VotacaoAtivaException();
+        if (!votacaoAtiva) throw new VotacaoAtivaException("Nenhuma votação está ativa no momento!");
         funcionarioClient.buscarPorId(votoDto.getIdFuncionario());
         if (idFuncionariosVotados.contains(votoDto.getIdFuncionario())) throw new VotoUnicoException();
         if (votacaoDto.getDataCriacao().isBefore(LocalDateTime.now())) throw new VotacaoExpiradaException();
         idFuncionariosVotados.add(votoDto.getIdFuncionario());
-        // IMPLEMENTAR KAFKA: Aqui manda o voto pro kafka
         return votoDto;
     }
 
     public String integrarVoto(VotoDto voto) {
-        try{
-            return  votoProducer.enviarVoto(voto);
-        }catch (Exception e){
+        try {
+            return votoProducer.enviarVoto(voto);
+        } catch (Exception e) {
             throw new EntityNullException("Erro ao enviar voto!");
         }
     }
