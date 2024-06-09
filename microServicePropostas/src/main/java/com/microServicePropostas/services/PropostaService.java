@@ -2,14 +2,15 @@ package com.microServicePropostas.services;
 
 import com.microServicePropostas.client.FuncionarioClient;
 import com.microServicePropostas.client.VotacaoClient;
-import com.microServicePropostas.exception.EntityNullException;
+import com.microServicePropostas.exception.EntityInvalidException;
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.exception.VotacaoAtivaException;
 import com.microServicePropostas.exception.VotacaoExpiradaException;
 import com.microServicePropostas.exception.VotoUnicoException;
 import com.microServicePropostas.producer.VotoProducer;
 import com.microServicePropostas.repositories.PropostaRepository;
-import com.microServicePropostas.web.dto.FuncionarioDto;
+import com.microServicePropostas.validacao.Validar;
+import com.microServicePropostas.web.dto.PropostaDto;
 import com.microServicePropostas.web.dto.VotacaoDto;
 import com.microServicePropostas.web.dto.VotoDto;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,12 +31,10 @@ public class PropostaService {
     private final VotoProducer votoProducer;
     private Boolean votacaoAtiva = false;
     private VotacaoDto votacaoDto = new VotacaoDto();
-    private List<Long> idFuncionariosVotados;
+    private List<Long> idFuncionariosVotoRegistrado;
 
     public Proposta save(Proposta proposta) {
-        if (proposta == null) {
-            throw new EntityNullException("Os campos não devem ser nulos!");
-        }
+        Validar.validarProposta(proposta);
         return propostaRepository.save(proposta);
     }
 
@@ -49,32 +48,38 @@ public class PropostaService {
         );
     }
 
-    public Proposta update(Long id, Proposta proposta) {
-        Proposta prop = findById(id);
-        prop.setId(proposta.getId());
-        prop.setTitulo(proposta.getTitulo());
-        prop.setDescricao(proposta.getDescricao());
-        propostaRepository.save(prop);
-        return prop;
+    public Proposta update(Long id, PropostaDto propostaDto) {
+        Validar.validarProposta(propostaDto);
+        Proposta newProposta;
+        try {
+            newProposta = findById(id);
+        } catch (Exception e) {
+            throw new EntityInvalidException("Proposta não encontrada!");
+        }
+        newProposta.setTitulo(propostaDto.getTitulo());
+        newProposta.setDescricao(propostaDto.getDescricao());
+        propostaRepository.save(newProposta);
+        return newProposta;
     }
 
     public void delete(Long id) {
+        try {
+             findById(id);
+        } catch (Exception e) {
+            throw new EntityInvalidException("Proposta não encontrada!");
+        }
         propostaRepository.deleteById(id);
     }
 
     public VotacaoDto iniciarVotacao(Long idProposta, Integer limite) {
-        Proposta prop = findById(idProposta);
+        Proposta proposta = findById(idProposta);
         if (votacaoAtiva) throw new VotacaoAtivaException("Outra votação está ativa no momento!");
+
         votacaoClient.iniciarVotacao(idProposta);
-        votacaoDto.setDataCriacao(LocalDateTime.now().plusMinutes(limite));
-        votacaoDto.setIdProposta(prop.getId());
-        votacaoDto.setTitulo(prop.getTitulo());
-        votacaoDto.setDescricao(prop.getDescricao());
-        votacaoDto.setAtiva(true);
-        votacaoDto.setVotosContras(0);
-        votacaoDto.setVotosPositivos(0);
         votacaoAtiva = true;
-        idFuncionariosVotados = new ArrayList<>();
+        idFuncionariosVotoRegistrado = new ArrayList<>();
+
+        VotacaoDto.iniciarVotacao(votacaoDto, proposta, limite);
         return votacaoDto;
     }
 
@@ -84,10 +89,15 @@ public class PropostaService {
 
     public VotoDto votar(VotoDto votoDto) {
         if (!votacaoAtiva) throw new VotacaoAtivaException("Nenhuma votação está ativa no momento!");
-        funcionarioClient.buscarPorId(votoDto.getIdFuncionario());
-        if (idFuncionariosVotados.contains(votoDto.getIdFuncionario())) throw new VotoUnicoException();
+        Validar.validarVoto(votoDto);
+        try {
+            funcionarioClient.buscarPorId(votoDto.getIdFuncionario());
+        } catch (Exception e) {
+            throw new EntityInvalidException("Funcionário inválido!");
+        }
+        if (idFuncionariosVotoRegistrado.contains(votoDto.getIdFuncionario())) throw new VotoUnicoException();
         if (votacaoDto.getDataCriacao().isBefore(LocalDateTime.now())) throw new VotacaoExpiradaException();
-        idFuncionariosVotados.add(votoDto.getIdFuncionario());
+        idFuncionariosVotoRegistrado.add(votoDto.getIdFuncionario());
         return votoDto;
     }
 
@@ -95,7 +105,7 @@ public class PropostaService {
         try {
             return votoProducer.enviarVoto(voto);
         } catch (Exception e) {
-            throw new EntityNullException("Erro ao enviar voto!");
+            throw new EntityInvalidException("Erro ao enviar voto!");
         }
     }
 }
