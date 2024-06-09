@@ -32,7 +32,7 @@ public class VotacaoService {
 
         resultado.setIdProposta(votacao.getIdProposta());
         resultado.setVotosPositivos(votacao.getVotosPositivos());
-        resultado.setVotosContra(votacao.getVotosContras());
+        resultado.setVotosContras(votacao.getVotosContras());
         if (votacao.getVotosPositivos().equals(votacao.getVotosContras())) resultado.setResultado("Empate!");
         if (votacao.getVotosPositivos() > votacao.getVotosContras()) resultado.setResultado("Aprovada!");
         if (votacao.getVotosPositivos() < votacao.getVotosContras()) resultado.setResultado("Rejeitada!");

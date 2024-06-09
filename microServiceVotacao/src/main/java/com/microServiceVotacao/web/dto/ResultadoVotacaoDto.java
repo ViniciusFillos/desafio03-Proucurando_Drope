@@ -7,6 +7,6 @@ public class ResultadoVotacaoDto {
 
     private Long idProposta;
     private Integer votosPositivos;
-    private Integer votosContra;
+    private Integer votosContras;
     private String resultado;
 }
