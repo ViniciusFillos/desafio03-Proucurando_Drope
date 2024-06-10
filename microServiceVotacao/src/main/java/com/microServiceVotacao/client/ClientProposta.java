@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @FeignClient(name = "proposta-consumer", url = "http://localhost:8080/api/v1/propostas")
 public interface ClientProposta {
 
-    @PostMapping("/votacao/ancerrar")
+    @PostMapping("/votacao/encerrar")
     void mudarStatusVotacaoAtivo();
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.microServiceFuncionarios.repositories.FuncionarioRepository;
 import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 import com.microServiceFuncionarios.web.dto.mapper.FuncionarioMapper;
+import org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
 
@@ -23,7 +25,6 @@ public class FuncionarioService {
     public Funcionario salvar(FuncionarioDto funcionario) {
         try {
             var entity = FuncionarioMapper.toFuncionario(funcionario);
-            entity.setAtivo(true);
             return funcionarioRepository.save(entity);
         } catch (DataIntegrityViolationException ex) {
             throw new CpfUniqueViolationException("Funcionário com um CPF já cadastrado");
@@ -33,24 +34,16 @@ public class FuncionarioService {
     }
 
     public Funcionario buscarPorId(Long id) {
-        return funcionarioRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Funcionário id=%s não encontrado", id)));
+        try {
+            return funcionarioRepository.findById(id).orElseThrow(
+                    () -> new EntityNotFoundException(String.format("Funcionário id=%s não encontrado", id)));
+        }  catch (MethodArgumentTypeMismatchException ex) {
+            throw new UnableException("Dados inválidos");
+        }
     }
 
     public List<Funcionario> buscarTodos() {
         return funcionarioRepository.findAll();
-    }
-
-    public Funcionario inativarFuncionario(Long id) {
-        Funcionario funcionario = buscarPorId(id);
-        if (!funcionario.isAtivo()) {
-            throw new UnableException("O funcionários já esta inativado");
-        }
-        else {
-            funcionario.setAtivo(false);
-        }
-        funcionarioRepository.save(funcionario);
-        return funcionario;
     }
 
     @Transactional
@@ -59,7 +52,6 @@ public class FuncionarioService {
         funcionarioAtualizado.setNome(funcionario.getNome());
         funcionarioAtualizado.setCpf(funcionario.getCpf());
         funcionarioAtualizado.setDataNascimento(funcionario.getDataNascimento());
-        funcionarioAtualizado.setAtivo(funcionario.isAtivo());
         funcionarioRepository.save(funcionarioAtualizado);
         return funcionarioAtualizado;
     }

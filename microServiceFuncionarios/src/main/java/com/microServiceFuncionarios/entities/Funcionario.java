@@ -1,8 +1,7 @@
 package com.microServiceFuncionarios.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,15 +23,14 @@ public class Funcionario {
     @Column(nullable = false)
     private String nome;
 
-    @NotNull
-    @Column(nullable = false, unique = true, length = 11)
+    @NotEmpty
+    @Size(min = 11, max = 11)
+    @Pattern(regexp = "\\d{11}")
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @NotNull
     @Column(nullable = false)
     private LocalDate dataNascimento;
 
-    @NotNull
-    @Column
-    private boolean ativo;
 }
