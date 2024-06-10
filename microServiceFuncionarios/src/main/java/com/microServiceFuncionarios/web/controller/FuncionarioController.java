@@ -60,7 +60,6 @@ public class FuncionarioController {
                             content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Funcionario.class)))
                             }),
-                    @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
                     @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
             })

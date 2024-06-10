@@ -46,3 +46,9 @@ management:
 topicos:
   request:
     topic: "voto"
+
+#SWAGGER
+springdoc:
+  swagger-ui:
+    path: /docs-msProposta.html
+  packages-to-scan: com.microServicePropostas.web.controller
