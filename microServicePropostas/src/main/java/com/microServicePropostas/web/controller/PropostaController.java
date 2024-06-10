@@ -122,6 +122,7 @@ public class PropostaController {
                     @ApiResponse(description = "Sucesso", responseCode = "200"),
                     @ApiResponse(description = "Nenhuma votação ativa", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode = "500", content = @Content)
+
             })
     public ResponseEntity<VotoDto> votar(@RequestBody VotoDto votoDto){
         VotoDto dto = propostaService.votar(votoDto);

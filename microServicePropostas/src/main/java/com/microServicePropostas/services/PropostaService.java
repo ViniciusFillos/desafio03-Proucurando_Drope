@@ -29,7 +29,7 @@ public class PropostaService {
     private final VotacaoClient votacaoClient;
     private final PropostaRepository propostaRepository;
     private final VotoProducer votoProducer;
-    private Boolean votacaoAtiva = false;
+    public Boolean votacaoAtiva = false;
     private VotacaoDto votacaoDto = new VotacaoDto();
     private List<Long> idFuncionariosVotoRegistrado;
 
@@ -54,7 +54,7 @@ public class PropostaService {
         try {
             newProposta = findById(id);
         } catch (Exception e) {
-            throw new EntityInvalidException("Proposta não encontrada!");
+            throw new EntityNotFoundException("Proposta não encontrada!");
         }
         newProposta.setTitulo(propostaDto.getTitulo());
         newProposta.setDescricao(propostaDto.getDescricao());
@@ -66,7 +66,7 @@ public class PropostaService {
         try {
              findById(id);
         } catch (Exception e) {
-            throw new EntityInvalidException("Proposta não encontrada!");
+            throw new EntityNotFoundException("Proposta não encontrada!");
         }
         propostaRepository.deleteById(id);
     }

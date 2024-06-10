@@ -51,7 +51,6 @@ public class MockFuncionario {
         funcionarioDto.setCpf("11111111111");
         funcionarioDto.setNome("Nome " + number);
         funcionarioDto.setDataNascimento(LocalDate.now());
-
         return funcionarioDto;
     }
 }
