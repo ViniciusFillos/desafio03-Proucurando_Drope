@@ -49,3 +49,9 @@ management:
 topicos:
   request:
     topic: "voto"
+
+#SWAGGER
+springdoc:
+  swagger-ui:
+    path: /docs-msVotacao.html
+  packages-to-scan: com.microServiceVotacao.web.controller
