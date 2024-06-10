@@ -41,7 +41,6 @@ public class MockFuncionario {
         Funcionario funcionario = new Funcionario();
         funcionario.setNome("Nome " + number);
         funcionario.setDataNascimento(LocalDate.now());
-        funcionario.setAtivo(true);
         funcionario.setCpf("11111111111");
         funcionario.setId(number.longValue());
         return funcionario;

@@ -68,19 +68,6 @@ public class FuncionarioController {
         return new ResponseEntity<>(todosFuncionarios, HttpStatus.OK);
     }
 
-    @PatchMapping("inativarfuncionario/{id}")
-    @Operation(summary = "Inativar um Funcionário", description = "Inativar um Funcionário pelo id",
-            responses = {
-                    @ApiResponse(description = "Atualizado", responseCode =  "200", content = @Content(schema = @Schema(implementation = Funcionario.class))),
-                    @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
-                    @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
-                    @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
-            })
-    public ResponseEntity<Funcionario> inativarFuncionario(@PathVariable Long id) {
-        Funcionario funcionarioinativo = funcionarioService.inativarFuncionario(id);
-        return ResponseEntity.ok().body(funcionarioinativo);
-    }
-
     @PutMapping("alterar/{id}")
     @Operation(summary = "Alterar um Funcionário", description = "Alterar um Funcionário passando um JSON",
             responses = {

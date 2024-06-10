@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class FuncionarioServiceTest {
 
-
     MockFuncionario input;
 
     @InjectMocks
@@ -52,7 +51,6 @@ class FuncionarioServiceTest {
         assertNotNull(result.getCpf());
         assertNotNull(result.getDataNascimento());
         assertNotNull(result.getNome());
-        assertTrue(result.isAtivo());
         assertEquals("Nome 1", result.getNome());
         assertEquals("11111111111", result.getCpf());
     }
@@ -69,7 +67,6 @@ class FuncionarioServiceTest {
         assertNotNull(result.getCpf());
         assertNotNull(result.getDataNascimento());
         assertNotNull(result.getNome());
-        assertTrue(result.isAtivo());
         assertEquals(1L, result.getId());
         assertEquals("Nome 1", result.getNome());
         assertEquals("11111111111", result.getCpf());
@@ -93,7 +90,6 @@ class FuncionarioServiceTest {
         assertNotNull(funcionarioUm.getCpf());
         assertNotNull(funcionarioUm.getDataNascimento());
         assertNotNull(funcionarioUm.getNome());
-        assertTrue(funcionarioUm.isAtivo());
         assertEquals("Nome 1", funcionarioUm.getNome());
         assertEquals("11111111111", funcionarioUm.getCpf());
 
@@ -102,28 +98,10 @@ class FuncionarioServiceTest {
         assertNotNull(funcionarioDez.getCpf());
         assertNotNull(funcionarioDez.getDataNascimento());
         assertNotNull(funcionarioDez.getNome());
-        assertTrue(funcionarioDez.isAtivo());
         assertEquals("Nome 10", funcionarioDez.getNome());
         assertEquals("11111111111", funcionarioDez.getCpf());
     }
 
-    @Test
-    void inativarFuncionario_ComIdValido_RetornaFuncionario() {
-        Funcionario entity = input.mockEntity(1);
-        when(funcionarioRepository.findById(anyLong())).thenReturn(Optional.of(entity));
-
-        var result = funcionarioService.inativarFuncionario(1L);
-
-        assertNotNull(result);
-        assertNotNull(result.getId());
-        assertNotNull(result.getCpf());
-        assertNotNull(result.getDataNascimento());
-        assertNotNull(result.getNome());
-        assertFalse(result.isAtivo());
-        assertEquals(1L, result.getId());
-        assertEquals("Nome 1", result.getNome());
-        assertEquals("11111111111", result.getCpf());
-    }
 
     @Test
     void alterarFuncionario_ComDadosValidos_RetornaFuncionario() {
@@ -140,7 +118,6 @@ class FuncionarioServiceTest {
         assertNotNull(result.getCpf());
         assertNotNull(result.getDataNascimento());
         assertNotNull(result.getNome());
-        assertTrue(result.isAtivo());
         assertEquals(funcionarioAtualizado.getId(), result.getId());
         assertEquals(funcionarioAtualizado.getNome(), result.getNome());
         assertEquals(funcionarioAtualizado.getCpf(), result.getCpf());
