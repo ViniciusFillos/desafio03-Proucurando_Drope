@@ -29,7 +29,7 @@ public class FuncionarioController {
 
     @Transactional
     @PostMapping
-    @Operation(summary = "Criar um Funcionário", description = "Criar um Funcionário passando um JSON", tags = {"Funcionário"},
+    @Operation(summary = "Criar um Funcionário", description = "Criar um Funcionário passando um JSON",
             responses = {
                     @ApiResponse(description = "Criado com Sucesso", responseCode =  "200", content = @Content(schema = @Schema(implementation = Funcionario.class))),
                     @ApiResponse(description = "CPF já cadastrado", responseCode =  "409", content = @Content(schema = @Schema(implementation = ErrorMessage.class))),
@@ -41,7 +41,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar um Funcionário", description = "Buscar um Funcionário pelo id", tags = {"Funcionário"},
+    @Operation(summary = "Buscar um Funcionário", description = "Buscar um Funcionário pelo id",
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode =  "200", content = @Content(schema = @Schema(implementation = Funcionario.class))),
                     @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
@@ -54,7 +54,7 @@ public class FuncionarioController {
     }
 
     @GetMapping
-    @Operation(summary = "Buscar todos os Funcionários", description = "Buscar todos os Funcionários", tags = {"Funcionário"},
+    @Operation(summary = "Buscar todos os Funcionários", description = "Buscar todos os Funcionários",
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode =  "200",
                             content = {
@@ -69,7 +69,7 @@ public class FuncionarioController {
     }
 
     @PatchMapping("inativarfuncionario/{id}")
-    @Operation(summary = "Inativar um Funcionário", description = "Inativar um Funcionário pelo id", tags = {"Funcionário"},
+    @Operation(summary = "Inativar um Funcionário", description = "Inativar um Funcionário pelo id",
             responses = {
                     @ApiResponse(description = "Atualizado", responseCode =  "200", content = @Content(schema = @Schema(implementation = Funcionario.class))),
                     @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
@@ -82,20 +82,20 @@ public class FuncionarioController {
     }
 
     @PutMapping("alterar/{id}")
-    @Operation(summary = "Alterar um Funcionário", description = "Alterar um Funcionário passando um JSON", tags = {"Funcionário"},
+    @Operation(summary = "Alterar um Funcionário", description = "Alterar um Funcionário passando um JSON",
             responses = {
                     @ApiResponse(description = "Atualizado", responseCode =  "200", content = @Content(schema = @Schema(implementation = Funcionario.class))),
                     @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
                     @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
             })
-    public Funcionario alterarfuncionario (@PathVariable Long id, @RequestBody Funcionario funcionario) {
+    public Funcionario alterarfuncionario (@PathVariable Long id, @RequestBody @Valid Funcionario funcionario) {
         Funcionario funcionarioalterado = funcionarioService.alterarFuncionario(id, funcionario);
         return new ResponseEntity<>(funcionarioalterado, HttpStatus.OK).getBody();
     }
 
     @DeleteMapping("deletar/{id}")
-    @Operation(summary = "Deletar um Funcionário", description = "Deletar um Funcionário por id", tags = {"Funcionário"},
+    @Operation(summary = "Deletar um Funcionário", description = "Deletar um Funcionário por id",
             responses = {
                     @ApiResponse(description = "Sem Conteúdo", responseCode =  "204", content = @Content),
                     @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
