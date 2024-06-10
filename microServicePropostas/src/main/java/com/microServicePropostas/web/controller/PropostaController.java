@@ -112,6 +112,14 @@ public class PropostaController {
     }
 
     @PostMapping("/votar")
+    @Operation(summary = "Votar", description = "Registrar seu voto como aceito ou rejeitado a uma votação", tags = {"Proposta", "Votação"},
+            responses = {
+                    @ApiResponse(description = "Registrado com Sucesso", responseCode =  "200", content = @Content(schema = @Schema(implementation = VotoDto.class))),
+                    @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
+                    @ApiResponse(description = "Sem Autorização", responseCode =  "403", content = @Content),
+                    @ApiResponse(description = "Campos Inválidos", responseCode =  "422", content = @Content),
+                    @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
+            })
     public ResponseEntity<VotoDto> votar(@RequestBody VotoDto votoDto){
         VotoDto dto = propostaService.votar(votoDto);
         propostaService.integrarVoto(votoDto);
