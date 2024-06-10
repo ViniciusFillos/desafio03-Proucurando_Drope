@@ -46,3 +46,9 @@ management:
   endpoint:
     health:
       show-details: always
+
+#SWAGGER
+springdoc:
+  swagger-ui:
+    path: /docs-msFuncionarios.html
+  packages-to-scan: com.microServiceFuncionarios.web.controller
