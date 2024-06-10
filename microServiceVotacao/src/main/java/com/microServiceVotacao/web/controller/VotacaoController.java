@@ -26,7 +26,7 @@ public class VotacaoController {
 
 
     @GetMapping
-    @Operation(summary = "Buscar todas as votações", description = "Buscar todas as votações registradas", tags = {"Votação"},
+    @Operation(summary = "Buscar todas as votações", description = "Buscar todas as votações registradas",
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode =  "200",
                             content = {
@@ -40,7 +40,7 @@ public class VotacaoController {
     }
 
     @PostMapping("/encerrar")
-    @Operation(summary = "Encerrar votação", description = "Encerrar uma votação em andamento", tags = {"Votação"},
+    @Operation(summary = "Encerrar votação", description = "Encerrar uma votação em andamento",
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode =  "200", content = @Content(schema = @Schema(implementation = ResultadoVotacaoDto.class))),
                     @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
@@ -52,11 +52,11 @@ public class VotacaoController {
     }
 
     @PostMapping("/iniciar/{idProposta}")
-    @Operation(summary = "Iniciar votação", description = "Iniciar uma nova votação para a proposta especificada", tags = {"Votação"},
+    @Operation(summary = "Iniciar votação", description = "Iniciar uma nova votação para a proposta especificada pelo ID",
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode =  "200"),
                     @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
-                    @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
+                    @ApiResponse(description = "Proposta não Encontrada", responseCode =  "404", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
             })
     public void iniciarVotacao(@PathVariable Long idProposta) {
