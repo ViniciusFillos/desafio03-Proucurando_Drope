@@ -2,6 +2,8 @@ package com.microServicePropostas.mocks;
 
 import com.microServicePropostas.entities.Proposta;
 import com.microServicePropostas.web.dto.PropostaDto;
+import com.microServicePropostas.web.dto.VotoDto;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,5 +46,12 @@ public class MockProposta {
         proposta.setTitulo("Titulo do proposta " + num);
         proposta.setDescricao("Descricao do proposta " + num);
         return proposta;
+    }
+
+    public VotoDto mockVotoDto(Integer num) {
+        VotoDto dto = new VotoDto();
+        dto.setIdFuncionario(num.longValue());
+        dto.setAprovo(true);
+        return dto;
     }
 }

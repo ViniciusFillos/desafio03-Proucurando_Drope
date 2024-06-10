@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @ExtendWith(MockitoExtension.class)
-public class PropostaServiceTest {
+class PropostaServiceTest {
 
     MockProposta input;
 
@@ -44,7 +44,9 @@ public class PropostaServiceTest {
     void salvar_ComDadosValidos_RetornarProposta(){
         Proposta proposta = input.mockEntity(1);
         when(propostaRepository.save(any(Proposta.class))).thenReturn(proposta);
+
         var result = propostaService.save(proposta);
+
         assertNotNull(result);
         assertNotNull(result.getId());
         assertNotNull(result.getDescricao());
@@ -58,6 +60,7 @@ public class PropostaServiceTest {
     void salvar_ComDadosNulos_RetornarEntityNullException(){
         Proposta proposta = input.mockEntity();
         when(propostaRepository.save(any())).thenThrow(EntityInvalidException.class);
+
         assertThatThrownBy(() -> propostaService.save(proposta)).isInstanceOf(EntityInvalidException.class);
     }
 
@@ -65,7 +68,9 @@ public class PropostaServiceTest {
     void buscarPorId_ComIdValido_RetornarProposta(){
         Proposta proposta = input.mockEntity(1);
         when(propostaRepository.findById(anyLong())).thenReturn(Optional.of(proposta));
+
         var result = propostaService.findById(1L);
+
         assertNotNull(result);
         assertNotNull(result.getId());
         assertNotNull(result.getDescricao());
@@ -77,8 +82,8 @@ public class PropostaServiceTest {
 
     @Test
     void buscarPorId_ComIdInvalido_RetornarEntityNotFoundException(){
-        Proposta proposta = input.mockEntity(0);
         when(propostaRepository.findById(anyLong())).thenThrow(EntityNotFoundException.class);
+
         assertThatThrownBy(() -> propostaService.findById(0L)).isInstanceOf(EntityNotFoundException.class);
     }
 
@@ -87,11 +92,11 @@ public class PropostaServiceTest {
     void buscarTodos_RetornarLista(){
         List<Proposta> propostas = input.mockEntityList();
         when(propostaRepository.findAll()).thenReturn(propostas);
+
         var listPropostas = propostaService.findAll();
 
         assertNotNull(listPropostas);
         assertEquals(10, listPropostas.size());
-
         var propostaUm = listPropostas.getFirst();
         var propostaDez = listPropostas.get(9);
 
@@ -119,6 +124,7 @@ public class PropostaServiceTest {
         when(propostaRepository.findById(1L)).thenReturn(Optional.of(proposta));
 
         var result = propostaService.update(1L, propostaAlterada);
+
         assertNotNull(result);
         assertNotNull(result.getId());
         assertNotNull(result.getDescricao());
@@ -129,6 +135,9 @@ public class PropostaServiceTest {
 
     @Test
     void deletarProposta_ComIdValido_NaoRetornaNada() {
+        Proposta proposta = input.mockEntity();
+        when(propostaRepository.findById(anyLong())).thenReturn(Optional.of(proposta));
+
         assertDoesNotThrow(() -> propostaService.delete(1L));
     }
 }
