@@ -17,16 +17,14 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler({EntityNotFoundException.class, jakarta.persistence.EntityNotFoundException.class})
     public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
     }
 
-    @ExceptionHandler(EntityInvalidException.class)
+    @ExceptionHandler({EntityInvalidException.class})
     public ResponseEntity<ErrorMessage> entityNullException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -35,7 +33,6 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(VotacaoAtivaException.class)
     public ResponseEntity<ErrorMessage> votacaoAtivaException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -44,7 +41,6 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(VotacaoExpiradaException.class)
     public ResponseEntity<ErrorMessage> votacaoExpiradaException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -53,7 +49,6 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(VotoUnicoException.class)
     public ResponseEntity<ErrorMessage> votoUnicoException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -62,7 +57,6 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> invalidDataException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
         return ResponseEntity
                 .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)
