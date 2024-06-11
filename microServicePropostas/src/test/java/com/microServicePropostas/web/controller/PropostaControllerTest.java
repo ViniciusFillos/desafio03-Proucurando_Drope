@@ -174,7 +174,7 @@ class PropostaControllerTest {
     @Test
     @Order(10)
     void mudarStatusVotacaoAtivo_DeveDesativarVotacao() {
-        propostaService.mudarStatusVotacaoAtivo();
+        propostaService.mudarStatusVotacaoAtivo("resultado");
         assertFalse(propostaService.votacaoAtiva);
     }
 }

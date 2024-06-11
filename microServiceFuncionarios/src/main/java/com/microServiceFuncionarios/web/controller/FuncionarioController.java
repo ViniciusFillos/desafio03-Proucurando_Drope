@@ -93,4 +93,9 @@ public class FuncionarioController {
         funcionarioService.deletarfuncionario(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/resultado_votacao")
+    public void votacaoEncerrada(@RequestBody String resultado) {
+        funcionarioService.votacaoEncerrada(resultado);
+    }
 }

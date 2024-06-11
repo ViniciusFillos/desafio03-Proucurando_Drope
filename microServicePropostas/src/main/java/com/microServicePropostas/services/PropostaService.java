@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
@@ -32,23 +33,28 @@ public class PropostaService {
     public Boolean votacaoAtiva = false;
     private VotacaoDto votacaoDto = new VotacaoDto();
     private List<Long> idFuncionariosVotoRegistrado;
+    private final Logger logger = Logger.getLogger(PropostaService.class.getName());
 
     public Proposta save(Proposta proposta) {
+        logger.info("Salvando uma proposta!");
         Validar.validarProposta(proposta);
         return propostaRepository.save(proposta);
     }
 
     public List<Proposta> findAll() {
+        logger.info("Buscando todas propostas!");
         return propostaRepository.findAll();
     }
 
     public Proposta findById(Long id) {
+        logger.info("Buscando uma proposta!");
         return propostaRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Proposta id=%s não encontrado!", id))
+                () -> new com.microServicePropostas.exception.EntityNotFoundException(String.format("Proposta id=%s não encontrado!", id))
         );
     }
 
     public Proposta update(Long id, PropostaDto propostaDto) {
+        logger.info("Atualizando uma proposta!");
         Validar.validarProposta(propostaDto);
         Proposta newProposta;
         try {
@@ -63,8 +69,9 @@ public class PropostaService {
     }
 
     public void delete(Long id) {
+        logger.info("Deletando uma proposta!");
         try {
-             findById(id);
+            findById(id);
         } catch (Exception e) {
             throw new EntityNotFoundException("Proposta não encontrada!");
         }
@@ -72,6 +79,7 @@ public class PropostaService {
     }
 
     public VotacaoDto iniciarVotacao(Long idProposta, Integer limite) {
+        logger.info("Iniciando uma proposta!");
         Proposta proposta = findById(idProposta);
         if (votacaoAtiva) throw new VotacaoAtivaException("Outra votação está ativa no momento!");
 
@@ -83,11 +91,14 @@ public class PropostaService {
         return votacaoDto;
     }
 
-    public void mudarStatusVotacaoAtivo() {
+    public void mudarStatusVotacaoAtivo(String resultado) {
+        logger.info("Votação encerrada! " + resultado);
+        funcionarioClient.votacaoEncerrada(resultado);
         votacaoAtiva = false;
     }
 
     public VotoDto votar(VotoDto votoDto) {
+        logger.info("Registrando um voto!");
         if (!votacaoAtiva) throw new VotacaoAtivaException("Nenhuma votação está ativa no momento!");
         Validar.validarVoto(votoDto);
         try {
