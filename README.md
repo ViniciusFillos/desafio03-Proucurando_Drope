@@ -50,6 +50,29 @@ Antes de executar o projeto, certifique-se de que os seguintes softwares estão 
      ```
 
 5. Use a collection do Postman disponível na pasta raiz para interagir com a API.
+```
+  Microsserviço de Gestão de Funcionários:
+   - Cadastrar Funcionário →  [POST] /api/v1/funcionarios
+   - Editar Funcionários →  [PUT] /api/v1/funcionarios/alterar/{id}
+   - Buscar Funcionário   →  [GET] /api/v1/funcionarios/{id}
+   - Buscar Todos Funcionários →  [GET] /api/v1/funcionarios
+   - Deletar Funcionário → [DELETE]  /api/v1/funcionarios{id}
+
+ Microsserviço de Gestão de Propostas:
+   - Cadastrar Proposta → [POST]  /api/v1/propostas
+   - Buscar Proposta → [GET] /api/v1/propostas/{id}
+   - Buscar Todas Propostas → [GET] /api/v1/propostas
+   - Editar Proposta → [PUT] /api/v1/propostas/{id}
+   - Deletar Proposta → [DELETE] /api/v1/propostas/{id}
+   - Iniciar Votação → [POST] /api/v1/propostas/votacao/{id}?limite={minutos}
+   - Votar → [POST]  /api/v1/propostas/votar
+
+ Microsserviço de Gestão de Votação:
+   - Encerrar Votação → [POST] /api/v1/votacao/encerrar
+   - Buscar Votação → [GET] /api/v1/votacao/{id}
+   - Buscar Todas Votações → [GET]  /api/v1/votacao
+```
+
 
 ### Estrutura de Branches
 
@@ -97,9 +120,7 @@ Localize o microsserviço específico (por exemplo, “Micro Serviço Funcionár
 
 ### Relatório de Desenvolvimento do Projeto
 
-Realizamos
-
- calls de squad regularmente ao longo do processo de implementação, discutimos os requisitos, chegamos em um consenso quanto à lógica de implementação, planejamos as tarefas e revisamos o progresso do desenvolvimento. Durante essas reuniões, Keren, Nicole e Vinicius contribuíram com ideias e sugestões, tornando o processo de implementação colaborativo.
+Realizamos calls de squad regularmente ao longo do processo de implementação, discutimos os requisitos, chegamos em um consenso quanto à lógica de implementação, planejamos as tarefas e revisamos o progresso do desenvolvimento. Durante essas reuniões, Keren, Nicole e Vinicius contribuíram com ideias e sugestões, tornando o processo de implementação colaborativo.
 
 Abordamos uma ideia de fazer da maneira mais simples e, então, depois de pouco em pouco em pouco, acrescentaríamos as partes que acreditávamos serem mais difíceis. Temos uma primeira release neste repositório onde o sistema já estava funcionando, porém sem utilizar do Kafka e com muitas regras de negócios ainda faltando. Fazendo as atualizações e cada vez aumentando a complexidade do projeto, lançamos a segunda release.
 

@@ -1,11 +1,10 @@
 {
 	"info": {
-		"_postman_id": "8a82cf35-c872-4874-bfb0-32847bbfb457",
+		"_postman_id": "6de1cc1b-b738-4cb1-ad34-1b05f39ff300",
 		"name": "Desafio03",
 		"description": "## Desafio 03: Microsserviços para gerenciar processos de tomada de decisões em uma empresa\n\n### Objetivos\n\nO objetivo deste projeto é construir um sistema de backend que permite que equipes internas proponham e votem em diversas propostas de melhorias.\n\n1. **Microsserviço de Gestão de Funcionários:**\n    \n    - Cadastrar Funcionário.\n        \n    - Editar Funcionários.\n        \n    - Buscar Funcionário.\n        \n    - Buscar Todos Funcionários.\n        \n    - Deletar Funcionário.\n        \n2. **Microsserviço de Gestão de Propostas:**\n    \n    - Cadastrar Proposta.\n        \n    - Buscar Proposta.\n        \n    - Buscar Todas Propostas.\n        \n    - Editar Proposta.\n        \n    - Deletar Proposta.\n        \n    - Iniciar Votação.\n        \n    - Votar.\n        \n3. **Microsserviço de Gestão de Votação:**\n    \n    - Encerrar Votação.\n        \n    - Buscar Todas Votações.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "34529915",
-		"_collection_link": "https://curso5.postman.co/workspace/curso-Workspace~236afd28-8476-4b52-85bc-af299e24e7a0/collection/34529915-8a82cf35-c872-4874-bfb0-32847bbfb457?action=share&source=collection_link&creator=34529915"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34313987"
 	},
 	"item": [
 		{
@@ -25,7 +24,18 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/funcionarios"
+						"url": {
+							"raw": "localhost:8080/api/v1/funcionarios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"funcionarios"
+							]
+						}
 					},
 					"response": []
 				},
@@ -46,7 +56,19 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/funcionarios/5"
+						"url": {
+							"raw": "localhost:8080/api/v1/funcionarios/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"funcionarios",
+								"5"
+							]
+						}
 					},
 					"response": []
 				},
@@ -67,7 +89,18 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/funcionarios"
+						"url": {
+							"raw": "localhost:8080/api/v1/funcionarios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"funcionarios"
+							]
+						}
 					},
 					"response": []
 				},
@@ -85,7 +118,20 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/funcionarios/alterar/1"
+						"url": {
+							"raw": "localhost:8080/api/v1/funcionarios/alterar/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"funcionarios",
+								"alterar",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -103,7 +149,20 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/funcionarios/deletar/27"
+						"url": {
+							"raw": "localhost:8080/api/v1/funcionarios/deletar/27",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"funcionarios",
+								"deletar",
+								"27"
+							]
+						}
 					},
 					"response": []
 				}
@@ -112,6 +171,27 @@
 		{
 			"name": "msVotacao",
 			"item": [
+				{
+					"name": "get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/votacao/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"votacao",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "get all",
 					"protocolProfileBehavior": {
@@ -129,7 +209,18 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/votacao"
+						"url": {
+							"raw": "localhost:8080/api/v1/votacao",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"votacao"
+							]
+						}
 					},
 					"response": []
 				},
@@ -138,7 +229,19 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "localhost:8080/api/v1/votacao/encerrar"
+						"url": {
+							"raw": "localhost:8080/api/v1/votacao/encerrar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"votacao",
+								"encerrar"
+							]
+						}
 					},
 					"response": []
 				}
@@ -147,24 +250,6 @@
 		{
 			"name": "msProposta",
 			"item": [
-				{
-					"name": "get all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "localhost:8080/api/v1/propostas"
-					},
-					"response": []
-				},
-				{
-					"name": "get by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "localhost:8080/api/v1/propostas/1"
-					},
-					"response": []
-				},
 				{
 					"name": "create",
 					"request": {
@@ -179,7 +264,59 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/propostas"
+						"url": {
+							"raw": "localhost:8080/api/v1/propostas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"propostas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/propostas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"propostas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/propostas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"propostas"
+							]
+						}
 					},
 					"response": []
 				},
@@ -197,7 +334,19 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/propostas/1"
+						"url": {
+							"raw": "localhost:8080/api/v1/propostas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"propostas",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -206,7 +355,19 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "localhost:8080/api/v1/propostas/1"
+						"url": {
+							"raw": "localhost:8080/api/v1/propostas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"propostas",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -215,7 +376,20 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "localhost:8080/api/v1/propostas/votacao/1"
+						"url": {
+							"raw": "localhost:8080/api/v1/propostas/votacao/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"propostas",
+								"votacao",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -233,7 +407,19 @@
 								}
 							}
 						},
-						"url": "localhost:8080/api/v1/propostas/votar"
+						"url": {
+							"raw": "localhost:8080/api/v1/propostas/votar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"propostas",
+								"votar"
+							]
+						}
 					},
 					"response": []
 				}
