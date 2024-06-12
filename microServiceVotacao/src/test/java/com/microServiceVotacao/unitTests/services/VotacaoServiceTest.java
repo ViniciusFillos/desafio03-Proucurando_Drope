@@ -16,9 +16,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -70,6 +72,24 @@ class VotacaoServiceTest {
         assertEquals(1, votacaoDez.getVotosContras());
         assertEquals(2, votacaoDez.getVotosPositivos());
         assertEquals(1L, votacaoDez.getIdProposta());
+    }
+
+    @Test
+    void buscarPorId_ComIdValido_RetornarProposta(){
+        Votacao votacao = input.mockVotacao(1);
+        when(votacaoRepository.findById(anyLong())).thenReturn(Optional.of(votacao));
+
+        var result = votacaoService.findById(1L);
+
+        assertNotNull(result);
+        assertNotNull(result.getId());
+        assertNotNull(result.getIdProposta());
+        assertNotNull(result.getVotosContras());
+        assertNotNull(result.getVotosPositivos());
+        assertEquals(1L, result.getId());
+        assertEquals(1, result.getVotosContras());
+        assertEquals(2, result.getVotosPositivos());
+        assertEquals(1L, result.getIdProposta());
     }
 
     @Test

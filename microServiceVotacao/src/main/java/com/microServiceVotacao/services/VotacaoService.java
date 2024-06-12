@@ -2,6 +2,7 @@ package com.microServiceVotacao.services;
 
 import com.microServiceVotacao.client.ClientProposta;
 import com.microServiceVotacao.entities.Votacao;
+import com.microServiceVotacao.exceptions.EntityNotFoundException;
 import com.microServiceVotacao.exceptions.EntityNullException;
 import com.microServiceVotacao.repositories.VotacaoRepository;
 import com.microServiceVotacao.web.dto.ResultadoVotacaoDto;
@@ -58,5 +59,12 @@ public class VotacaoService {
         votacao.setIdProposta(null);
         votacao.setVotosPositivos(null);
         votacao.setVotosContras(null);
+    }
+
+    public Votacao findById(Long id) {
+        logger.info("Buscando uma proposta!");
+        return votacaoRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Votação id=%s não encontrado!", id))
+        );
     }
 }

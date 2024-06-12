@@ -32,18 +32,30 @@ public class VotacaoController {
                             content = {
                                     @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Votacao.class)))
                             }),
-                    @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
             })
     public ResponseEntity<List<Votacao>> getAll() {
         return new ResponseEntity<>(votacaoService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar uma votação pelo ID", description = "Buscar uma votação pelo ID especificado",
+            responses = {
+                    @ApiResponse(description = "Sucesso", responseCode =  "200", content = @Content(schema = @Schema(implementation = Votacao.class))),
+                    @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
+                    @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
+                    @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
+            })
+    public ResponseEntity<Votacao> getById(@PathVariable Long id) {
+        Votacao votacao = votacaoService.findById(id);
+        return new ResponseEntity<>(votacao, HttpStatus.OK);
+    }
+
     @PostMapping("/encerrar")
     @Operation(summary = "Encerrar votação", description = "Encerrar uma votação em andamento",
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode =  "200", content = @Content(schema = @Schema(implementation = ResultadoVotacaoDto.class))),
-                    @ApiResponse(description = "Não Encontrado", responseCode =  "404", content = @Content),
+                    @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
             })
     public ResponseEntity<ResultadoVotacaoDto> encerrarVotacao() {
@@ -52,11 +64,10 @@ public class VotacaoController {
     }
 
     @PostMapping("/iniciar/{idProposta}")
-    @Operation(summary = "Iniciar votação", description = "Iniciar uma nova votação para a proposta especificada pelo ID",
+    @Operation(summary = "Setar votação ativa/ suporte msPropostas", description = "Mudar o status de votação para ativo e setar o id da Proposta em votação",
             responses = {
                     @ApiResponse(description = "Sucesso", responseCode =  "200"),
                     @ApiResponse(description = "Requisição Inválida", responseCode =  "400", content = @Content),
-                    @ApiResponse(description = "Proposta não Encontrada", responseCode =  "404", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode =  "500", content = @Content)
             })
     public void iniciarVotacao(@PathVariable Long idProposta) {
