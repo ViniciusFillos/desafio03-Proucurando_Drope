@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: msFuncionarios
+
+  # DATASOURCE
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:file:./msFuncionario
+    username: sa
+    password:
+
+  # H2 CLIENT
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # JPA, SQL
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 0
+
+#EUREKA
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+
+#ACTUATOR
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+#SWAGGER
+springdoc:
+  swagger-ui:
+    path: /docs-msFuncionarios.html
+  packages-to-scan: com.microServiceFuncionarios.web.controller
