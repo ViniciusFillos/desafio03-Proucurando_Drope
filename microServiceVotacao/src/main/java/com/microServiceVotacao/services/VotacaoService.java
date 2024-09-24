@@ -18,7 +18,7 @@ public class VotacaoService {
 
     private final VotacaoRepository votacaoRepository;
 
-    public static Votacao votacao = new Votacao();
+    public static Votacao votacao;
 
     private final Logger logger = Logger.getLogger(VotacaoService.class.getName());
 
@@ -49,6 +49,7 @@ public class VotacaoService {
     }
 
     public void iniciarVotacao(Long idProposta) {
+        votacao = new Votacao();
         logger.info("Iniciando uma votação!");
         votacao.setIdProposta(idProposta);
         votacao.setVotosPositivos(0);
