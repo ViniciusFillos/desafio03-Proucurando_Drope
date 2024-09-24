@@ -19,6 +19,8 @@
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.2</spring-cloud.version>
 		<springdoc.version>2.1.0</springdoc.version>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 
 	<dependencies>
