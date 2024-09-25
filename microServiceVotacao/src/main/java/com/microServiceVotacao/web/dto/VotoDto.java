@@ -6,5 +6,6 @@ import lombok.Data;
 public class VotoDto {
 
     private Long idFuncionario;
+    private String tituloProposta;
     private Boolean aprovo;
 }

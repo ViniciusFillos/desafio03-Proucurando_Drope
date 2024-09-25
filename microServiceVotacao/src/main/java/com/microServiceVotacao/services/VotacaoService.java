@@ -31,7 +31,7 @@ public class VotacaoService {
 
     public ResultadoVotacaoDto encerrar() {
         logger.info("Encerrando a votação!");
-        if (votacao.getIdProposta() == null || votacao.getVotosContras() == null || votacao.getVotosPositivos() == null)
+        if (votacao == null || votacao.getVotosContras() == null || votacao.getVotosPositivos() == null)
             throw new EntityNullException("Nenhuma votação está ativa no momento!");
         votacaoRepository.save(votacao);
         ResultadoVotacaoDto resultado = new ResultadoVotacaoDto();
