@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class VotoProducer  {
 
-    @Value("${topicos.request.topic}")
-    private String resultado;
+    @Value("${topicos.request.voto}")
+    private String votoKafka;
     private final ObjectMapper mapper;
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public String enviarVoto(VotoDto votoDto) throws JsonProcessingException {
         String conteudo = mapper.writeValueAsString(votoDto);
-        kafkaTemplate.send(resultado, conteudo);
+        kafkaTemplate.send(votoKafka, conteudo);
         return "VOTO ENVIADO COM SUCESSO!";
     }
 }

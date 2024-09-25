@@ -80,7 +80,7 @@ public class PropostaService {
     }
 
     public VotacaoDto iniciarVotacao(Long idProposta, Integer limite) {
-        logger.info("Iniciando uma proposta!");
+        logger.info("Iniciando uma votação!");
         Proposta proposta = findById(idProposta);
         if (votacaoAtiva) throw new VotacaoAtivaException("Outra votação está ativa no momento!");
 

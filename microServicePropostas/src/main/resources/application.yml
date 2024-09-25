@@ -42,10 +42,11 @@ management:
     health:
       show-details: always
 
-#KAFKA
+# KAFKA
 topicos:
   request:
-    topic: "voto"
+    voto: "voto"
+    votacao: "votacao"
 
 #SWAGGER
 springdoc:
