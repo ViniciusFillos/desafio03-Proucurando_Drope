@@ -93,9 +93,7 @@ public class PropostaService {
         return votacaoDto;
     }
 
-    public void mudarStatusVotacaoAtivo(String resultado) {
-        logger.info("Votação encerrada! " + resultado);
-        funcionarioClient.votacaoEncerrada(resultado);
+    public void mudarStatusVotacaoAtivo() {
         votacaoAtiva = false;
     }
 

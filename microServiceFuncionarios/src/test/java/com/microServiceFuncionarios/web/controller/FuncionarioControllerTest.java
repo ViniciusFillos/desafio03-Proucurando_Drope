@@ -6,7 +6,7 @@ import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
 import com.microServiceFuncionarios.exceptions.EntityNotFoundException;
 import com.microServiceFuncionarios.mocks.MockFuncionario;
 import com.microServiceFuncionarios.service.FuncionarioService;
-import com.microServiceFuncionarios.web.ErrorMessage;
+import com.microServiceFuncionarios.web.exception.ErrorMessage;
 import com.microServiceFuncionarios.web.dto.FuncionarioDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

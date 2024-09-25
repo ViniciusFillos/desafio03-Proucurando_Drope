@@ -19,14 +19,11 @@ import java.util.logging.Logger;
 public class VotacaoService {
 
     private final VotacaoRepository votacaoRepository;
+    private final VotacaoProducer votacaoProducer;
+    private final Logger logger = Logger.getLogger(VotacaoService.class.getName());
+    private final ClientProposta clientProposta;
 
     public static Votacao votacao;
-
-    private final VotacaoProducer votacaoProducer;
-
-    private final Logger logger = Logger.getLogger(VotacaoService.class.getName());
-
-    private final ClientProposta clientProposta;
 
     public List<Votacao> findAll() {
         logger.info("Buscando todas votações!");
@@ -38,18 +35,11 @@ public class VotacaoService {
         if (votacao == null || votacao.getVotosContras() == null || votacao.getVotosPositivos() == null)
             throw new EntityNullException("Nenhuma votação está ativa no momento!");
         votacaoRepository.save(votacao);
-        ResultadoVotacaoDto resultado = new ResultadoVotacaoDto();
-
-        resultado.setIdProposta(votacao.getIdProposta());
-        resultado.setVotosPositivos(votacao.getVotosPositivos());
-        resultado.setVotosContras(votacao.getVotosContras());
-        if (votacao.getVotosPositivos().equals(votacao.getVotosContras())) resultado.setResultado("Empate!");
-        if (votacao.getVotosPositivos() > votacao.getVotosContras()) resultado.setResultado("Aprovada!");
-        if (votacao.getVotosPositivos() < votacao.getVotosContras()) resultado.setResultado("Rejeitada!");
-        clientProposta.mudarStatusVotacaoAtivo(resultado.getResultado());
-        logger.info("Votação encerrada! " + resultado.getResultado());
+        ResultadoVotacaoDto resultado = new ResultadoVotacaoDto(votacao);
+        clientProposta.mudarStatusVotacaoAtivo();
         deixarVotacaoNula();
         integrarResultadoVotacao(resultado);
+        logger.info("VOTAÇÃO ENCERRADA!:   "+ resultado.getResultado());
         return resultado;
     }
 

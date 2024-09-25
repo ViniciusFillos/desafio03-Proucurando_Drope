@@ -4,7 +4,6 @@ package com.microServiceFuncionarios.web.exception;
 import com.microServiceFuncionarios.exceptions.UnableException;
 import com.microServiceFuncionarios.exceptions.CpfUniqueViolationException;
 import com.microServiceFuncionarios.exceptions.EntityNotFoundException;
-import com.microServiceFuncionarios.web.ErrorMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

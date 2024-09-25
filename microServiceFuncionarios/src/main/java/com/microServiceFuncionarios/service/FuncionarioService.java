@@ -66,8 +66,4 @@ public class FuncionarioService {
         buscarPorId(id);
         funcionarioRepository.deleteById(id);
     }
-
-    public void votacaoEncerrada(String resultado) {
-        logger.info("Votação encerrada! " + resultado);
-    }
 }

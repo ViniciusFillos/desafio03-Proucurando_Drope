@@ -1,4 +1,4 @@
-package com.microServiceFuncionarios.web;
+package com.microServiceFuncionarios.web.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;

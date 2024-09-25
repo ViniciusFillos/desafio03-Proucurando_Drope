@@ -1,7 +1,7 @@
 package com.microServiceFuncionarios.web.controller;
 
 import com.microServiceFuncionarios.entities.Funcionario;
-import com.microServiceFuncionarios.web.ErrorMessage;
+import com.microServiceFuncionarios.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -92,10 +92,5 @@ public class FuncionarioController {
     public ResponseEntity<Void> deletarPorId(@PathVariable Long id) {
         funcionarioService.deletarfuncionario(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @PostMapping("/resultado_votacao")
-    public void votacaoEncerrada(@RequestBody String resultado) {
-        funcionarioService.votacaoEncerrada(resultado);
     }
 }
