@@ -1,7 +1,7 @@
-package com.microServicePropostas.consumer;
+package com.microServiceFuncionarios.consumer;
 
 import com.google.gson.Gson;
-import com.microServicePropostas.web.dto.ResultadoVotacaoDto;
+import com.microServiceFuncionarios.web.dto.ResultadoVotacaoDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,7 +16,7 @@ public class ResultadoConsumer {
 
     @KafkaListener(
             topics = "${topicos.request.votacao}", // Para escutar o tópico "votacao"
-            groupId = "topic-votacao"
+            groupId = "topic-votacao-funcionarios"
     )
     public void consumer(String resultadoString){
         ResultadoVotacaoDto resultadoVotacaoDto = gson.fromJson(resultadoString, ResultadoVotacaoDto.class);

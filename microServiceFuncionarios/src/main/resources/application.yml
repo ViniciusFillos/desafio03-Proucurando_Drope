@@ -52,3 +52,9 @@ springdoc:
   swagger-ui:
     path: /docs-msFuncionarios.html
   packages-to-scan: com.microServiceFuncionarios.web.controller
+
+# KAFKA
+topicos:
+  request:
+    voto: "voto"
+    votacao: "votacao"

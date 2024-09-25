@@ -1,4 +1,4 @@
-package com.microServicePropostas.web.dto;
+package com.microServiceFuncionarios.web.dto;
 
 import lombok.Data;
 
@@ -16,4 +16,3 @@ public class ResultadoVotacaoDto {
         if (this.getVotosPositivos() < this.getVotosContras()) this.setResultado("REJEITADA!");
     }
 }
-

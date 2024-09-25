@@ -112,8 +112,8 @@ public class PropostaController {
                     @ApiResponse(description = "Nenhuma votação ativa", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Erro Interno", responseCode = "500", content = @Content)
             })
-    public void mudarStatusVotacaoAtivo(@RequestBody String resultado){
-        propostaService.mudarStatusVotacaoAtivo(resultado);
+    public void mudarStatusVotacaoAtivo(){
+        propostaService.mudarStatusVotacaoAtivo();
     }
 
     @PostMapping("/votar")

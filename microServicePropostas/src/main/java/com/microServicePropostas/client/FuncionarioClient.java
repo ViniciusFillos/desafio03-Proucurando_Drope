@@ -12,7 +12,4 @@ public interface FuncionarioClient {
 
     @GetMapping("/{id}")
     FuncionarioDto buscarPorId(@PathVariable("id") Long id);
-
-    @PostMapping("/resultado_votacao")
-    void votacaoEncerrada(@RequestBody String resultado);
 }

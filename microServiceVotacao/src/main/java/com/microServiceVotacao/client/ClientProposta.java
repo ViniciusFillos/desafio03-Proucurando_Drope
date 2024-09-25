@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface ClientProposta {
 
     @PostMapping("/votacao/encerrar")
-    Publisher<?> mudarStatusVotacaoAtivo(@RequestBody String resultado);
+    Publisher<?> mudarStatusVotacaoAtivo();
 }
