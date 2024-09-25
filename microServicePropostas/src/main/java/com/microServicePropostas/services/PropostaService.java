@@ -112,6 +112,7 @@ public class PropostaService {
         if (votacaoDto.getDataCriacao().isBefore(LocalDateTime.now())) throw new VotacaoExpiradaException();
         idFuncionariosVotoRegistrado.add(votoDto.getIdFuncionario());
         votoDto.setTituloProposta(propostaRepository.findById(votacaoAtivaId).get().getTitulo());
+        integrarVoto(votoDto);
         return votoDto;
     }
 
