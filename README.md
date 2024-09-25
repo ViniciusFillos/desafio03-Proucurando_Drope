@@ -116,7 +116,6 @@ Localize o microsserviço específico (por exemplo, “Micro Serviço Funcionár
 
 * **Versionamento:** Para as próximas versões do projeto, mudaríamos a URL (/v1) e já temos algumas ideias para implementar (caso houvesse um cliente, cuidaríamos para que as funcionalidades da (/v1) continuassem funcionando por algum tempo dentro da (/v2), dando tempo para os mesmos se atualizarem).
 * Adicionar Flyway ao projeto para também versionar os bancos de dados.
-* Trocar o modo em que passamos os resultados das votações para outros microsserviços, saindo do openFeign e criando um novo tópico no Kafka para armazenar os resultados, colocando os outros microsserviços como listeners para esse tópico, assim deixando o sistema menos acoplado.
 
 ### Relatório de Desenvolvimento do Projeto
 
@@ -129,3 +128,9 @@ Testamos os endpoints utilizando o Postman, garantindo que todas as funcionalida
 Ao longo do desenvolvimento, surgiam dúvidas e dificuldades, recorremos uns aos outros para encontrar soluções e garantir que o desenvolvimento continuasse fluindo sem contratempos significativos. Para resolver problemas específicos, consultamos recursos online e, quando necessário, solicitamos apoio dos instrutores, que nos forneceram orientações e sugestões para superar os obstáculos encontrados.
 
 Consideramos que nosso progresso foi significativo, conseguimos colocar em prática o que aprendemos nos cursos e estamos felizes e orgulhosos dos resultados alcançados pela squad.
+
+
+---
+<p align="center">
+  <a href="./LICENSE">MIT licensed</a>
+</p>
