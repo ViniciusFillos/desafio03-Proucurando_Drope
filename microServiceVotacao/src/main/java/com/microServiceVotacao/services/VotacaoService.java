@@ -2,8 +2,10 @@ package com.microServiceVotacao.services;
 
 import com.microServiceVotacao.client.ClientProposta;
 import com.microServiceVotacao.entities.Votacao;
+import com.microServiceVotacao.exceptions.EntityInvalidException;
 import com.microServiceVotacao.exceptions.EntityNotFoundException;
 import com.microServiceVotacao.exceptions.EntityNullException;
+import com.microServiceVotacao.producer.VotacaoProducer;
 import com.microServiceVotacao.repositories.VotacaoRepository;
 import com.microServiceVotacao.web.dto.ResultadoVotacaoDto;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ public class VotacaoService {
     private final VotacaoRepository votacaoRepository;
 
     public static Votacao votacao;
+
+    private final VotacaoProducer votacaoProducer;
 
     private final Logger logger = Logger.getLogger(VotacaoService.class.getName());
 
@@ -45,6 +49,7 @@ public class VotacaoService {
         clientProposta.mudarStatusVotacaoAtivo(resultado.getResultado());
         logger.info("Votação encerrada! " + resultado.getResultado());
         deixarVotacaoNula();
+        integrarResultadoVotacao(resultado);
         return resultado;
     }
 
@@ -67,5 +72,13 @@ public class VotacaoService {
         return votacaoRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Votação id=%s não encontrado!", id))
         );
+    }
+
+    public String integrarResultadoVotacao(ResultadoVotacaoDto resultadoVotacaoDto) {
+        try {
+            return votacaoProducer.enviarResultadoVotacao(resultadoVotacaoDto);
+        } catch (Exception e) {
+            throw new EntityInvalidException("Erro ao enviar resulatado da votação!");
+        }
     }
 }

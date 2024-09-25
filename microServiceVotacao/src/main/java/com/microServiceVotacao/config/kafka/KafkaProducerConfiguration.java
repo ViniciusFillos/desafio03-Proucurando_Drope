@@ -1,4 +1,4 @@
-package com.microServicePropostas.config.kafka;
+package com.microServiceVotacao.config.kafka;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -21,8 +21,8 @@ import java.util.Map;
 public class KafkaProducerConfiguration {
     private final KafkaProperties kafkaProperties;
 
-    @Value("${topicos.request.voto}")
-    private String votoKafka;
+    @Value("votacao")
+    private String votacaoKafka;
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {
@@ -41,7 +41,7 @@ public class KafkaProducerConfiguration {
     @Bean
     public NewTopic topicos() {
         return TopicBuilder
-                .name(votoKafka)
+                .name(votacaoKafka)
                 .partitions(1)
                 .replicas(1)
                 .build();

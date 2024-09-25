@@ -14,11 +14,10 @@ public class VotoConsumer {
     private final Gson gson;
 
     @KafkaListener(
-            topics = "${topicos.request.topic}",
+            topics = "${topicos.request.voto}", // Para escutar o tópico "voto"
             groupId = "topic-voto"
     )
     public void consumer(String votoString){
-
         VotoDto voto = gson.fromJson(votoString, VotoDto.class);
         if (voto.getAprovo()) VotacaoService.votacao.setVotosPositivos(VotacaoService.votacao.getVotosPositivos()+1);
         else VotacaoService.votacao.setVotosContras(VotacaoService.votacao.getVotosContras()+1);
