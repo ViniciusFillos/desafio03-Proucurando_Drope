@@ -31,6 +31,7 @@ public class PropostaService {
     private final PropostaRepository propostaRepository;
     private final VotoProducer votoProducer;
     public Boolean votacaoAtiva = false;
+    public Long votacaoAtivaId;
     private VotacaoDto votacaoDto = new VotacaoDto();
     private List<Long> idFuncionariosVotoRegistrado;
     private final Logger logger = Logger.getLogger(PropostaService.class.getName());
@@ -85,6 +86,7 @@ public class PropostaService {
 
         votacaoClient.iniciarVotacao(idProposta);
         votacaoAtiva = true;
+        votacaoAtivaId = idProposta;
         idFuncionariosVotoRegistrado = new ArrayList<>();
 
         VotacaoDto.iniciarVotacao(votacaoDto, proposta, limite);
@@ -109,6 +111,7 @@ public class PropostaService {
         if (idFuncionariosVotoRegistrado.contains(votoDto.getIdFuncionario())) throw new VotoUnicoException();
         if (votacaoDto.getDataCriacao().isBefore(LocalDateTime.now())) throw new VotacaoExpiradaException();
         idFuncionariosVotoRegistrado.add(votoDto.getIdFuncionario());
+        votoDto.setTituloProposta(propostaRepository.findById(votacaoAtivaId).get().getTitulo());
         return votoDto;
     }
 
