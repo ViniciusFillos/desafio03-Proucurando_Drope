@@ -126,7 +126,6 @@ public class PropostaController {
             })
     public ResponseEntity<VotoDto> votar(@RequestBody VotoDto votoDto){
         VotoDto dto = propostaService.votar(votoDto);
-        propostaService.integrarVoto(votoDto);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }
